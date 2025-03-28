@@ -43,6 +43,11 @@ public class Teacher {
     @Column(name = "course")
     private List<Course> coursesToTeach;
 
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
+
+
+
 
 
 

@@ -49,6 +49,14 @@ public class Student {
     @Column(name = "course")
     private List<Course> enrolledCourses;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Lesson> lessons;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
+
+
+
 
 
 }
