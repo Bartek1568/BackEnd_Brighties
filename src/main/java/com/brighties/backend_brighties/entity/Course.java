@@ -1,4 +1,11 @@
 package com.brighties.backend_brighties.entity;
 
-public class Course {
+public enum Course {
+    MATEMATYKA,
+    ANGIELSKI,
+    FIZYKA,
+    BIOLOGIA,
+    CHEMIA,
+    NIEMIECKI,
+    
 }

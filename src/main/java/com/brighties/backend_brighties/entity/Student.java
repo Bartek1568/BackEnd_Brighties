@@ -1,17 +1,21 @@
 package com.brighties.backend_brighties.entity;
 
+
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "teachers")
-public class Teacher {
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "students")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,22 +37,17 @@ public class Teacher {
     private int phoneNumber;
 
     @Column(nullable = false)
-    private String description;
+    private int grade;
 
-    @OneToOne(mappedBy = "teacher")
-    private Schedule schedule;
+    @Column(nullable = false)
+    private SchoolType schoolType;
+
+    @Column(nullable = false)
+    private String goal;
 
     @ElementCollection
-    @CollectionTable(name = "teacher_courses", joinColumns = @JoinColumn(name = "teacher_id"))
     @Column(name = "course")
-    private List<Course> coursesToTeach;
-
-
-
-
-
-
-
+    private List<Course> enrolledCourses;
 
 
 

@@ -1,4 +1,7 @@
 package com.brighties.backend_brighties.repository;
 
-public interface ScheduleRepository {
+import com.brighties.backend_brighties.entity.Schedule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 }
