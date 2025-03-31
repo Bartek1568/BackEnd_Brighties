@@ -1,4 +1,4 @@
-package com.brighties.backend_brighties.entity;
+package com.brighties.teacherservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,24 +27,15 @@ public class Teacher {
     private String email;
 
     @Column(nullable = false)
-    private int age;
+    private Integer age;
 
     @Column(nullable = false)
-    private int phoneNumber;
+    private Integer phoneNumber;
 
     @Column(nullable = false)
     private String description;
 
-    @OneToOne(mappedBy = "teacher")
-    private Schedule schedule;
 
-    @ElementCollection
-    @CollectionTable(name = "teacher_courses", joinColumns = @JoinColumn(name = "teacher_id"))
-    @Column(name = "course")
-    private List<Course> coursesToTeach;
-
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
 
 
 

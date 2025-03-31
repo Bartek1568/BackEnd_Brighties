@@ -1,6 +1,6 @@
-package com.brighties.backend_brighties.repository;
+package com.brighties.teacherservice.repository;
 
-import com.brighties.backend_brighties.entity.Teacher;
+import com.brighties.teacherservice.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeacherRepository  extends JpaRepository<Teacher, Integer> {
