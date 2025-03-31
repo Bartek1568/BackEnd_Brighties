@@ -4,11 +4,13 @@ import com.brighties.teacherservice.dto.TeacherResponseDTO;
 import com.brighties.teacherservice.mapper.TeacherMapper;
 import com.brighties.teacherservice.model.Teacher;
 import com.brighties.teacherservice.repository.TeacherRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class TeacherService {
     private TeacherRepository teacherRepository;
 
