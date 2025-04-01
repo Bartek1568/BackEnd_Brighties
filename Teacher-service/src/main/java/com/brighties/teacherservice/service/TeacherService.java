@@ -1,5 +1,6 @@
 package com.brighties.teacherservice.service;
 
+import com.brighties.teacherservice.dto.TeacherRequestDTO;
 import com.brighties.teacherservice.dto.TeacherResponseDTO;
 import com.brighties.teacherservice.mapper.TeacherMapper;
 import com.brighties.teacherservice.model.Teacher;
@@ -23,5 +24,12 @@ public class TeacherService {
 
          return teachers.stream().
                  map(teacher -> TeacherMapper.toDTO(teacher)).collect(Collectors.toList());
+    }
+
+    public TeacherResponseDTO createTeacher(TeacherRequestDTO teacherRequestDTO){
+        Teacher newTeacher = teacherRepository.save(
+                TeacherMapper.toModel(teacherRequestDTO));
+
+        return TeacherMapper.toDTO(newTeacher);
     }
 }
