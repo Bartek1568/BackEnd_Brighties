@@ -2,6 +2,7 @@ package com.brighties.teacherservice.service;
 
 import com.brighties.teacherservice.dto.TeacherRequestDTO;
 import com.brighties.teacherservice.dto.TeacherResponseDTO;
+import com.brighties.teacherservice.exception.EmailAlreadyExistsException;
 import com.brighties.teacherservice.mapper.TeacherMapper;
 import com.brighties.teacherservice.model.Teacher;
 import com.brighties.teacherservice.repository.TeacherRepository;
@@ -27,8 +28,13 @@ public class TeacherService {
     }
 
     public TeacherResponseDTO createTeacher(TeacherRequestDTO teacherRequestDTO){
+
+       if (teacherRepository.existsByEmail(teacherRequestDTO.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists");
+       }
         Teacher newTeacher = teacherRepository.save(
                 TeacherMapper.toModel(teacherRequestDTO));
+
 
         return TeacherMapper.toDTO(newTeacher);
     }
