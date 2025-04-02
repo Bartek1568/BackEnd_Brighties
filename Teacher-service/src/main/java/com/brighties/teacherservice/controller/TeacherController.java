@@ -2,7 +2,6 @@ package com.brighties.teacherservice.controller;
 
 import com.brighties.teacherservice.dto.TeacherRequestDTO;
 import com.brighties.teacherservice.dto.TeacherResponseDTO;
-import com.brighties.teacherservice.model.Teacher;
 import com.brighties.teacherservice.service.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +31,21 @@ public class TeacherController {
         TeacherResponseDTO teacherResponseDTO = teacherService.createTeacher(teacherRequest);
 
         return ResponseEntity.ok().body(teacherResponseDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TeacherResponseDTO> updateTeacher(@PathVariable Long id,
+                                                            @RequestBody TeacherRequestDTO teacherRequestDTO) {
+
+        TeacherResponseDTO teacherResponseDTO = teacherService.updateTeacher(id,
+                teacherRequestDTO);
+
+        return ResponseEntity.ok().body(teacherResponseDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
+        teacherService.deleteTeacher(id);
+        return ResponseEntity.noContent().build();
     }
 }
