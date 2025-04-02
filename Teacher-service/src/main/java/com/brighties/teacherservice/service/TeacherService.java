@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,11 @@ public class TeacherService {
 
          return teachers.stream().
                  map(teacher -> TeacherMapper.toDTO(teacher)).collect(Collectors.toList());
+    }
+
+    public TeacherResponseDTO getTeacherById(long id) throws TeacherNotFoundException {
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        return TeacherMapper.toDTO(teacher.get());
     }
 
     public TeacherResponseDTO createTeacher(TeacherRequestDTO teacherRequestDTO){
