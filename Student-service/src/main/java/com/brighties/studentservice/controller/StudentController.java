@@ -1,15 +1,13 @@
 package com.brighties.studentservice.controller;
 
 
+import com.brighties.studentservice.dto.StudentRequestDTO;
 import com.brighties.studentservice.dto.StudentResponseDTO;
 import com.brighties.studentservice.model.Student;
 import com.brighties.studentservice.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,13 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponseDTO> getStudentById(@PathVariable Long id) {
         return  ResponseEntity.ok().body(studentService.getStudentById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentRequestDTO studentRequest) {
+        StudentResponseDTO studentResponseDTO = studentService.createStudent(studentRequest);
+
+        return ResponseEntity.ok().body(studentResponseDTO);
+
     }
 }

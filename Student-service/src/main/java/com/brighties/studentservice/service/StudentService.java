@@ -1,5 +1,6 @@
 package com.brighties.studentservice.service;
 
+import com.brighties.studentservice.dto.StudentRequestDTO;
 import com.brighties.studentservice.dto.StudentResponseDTO;
 import com.brighties.studentservice.mapper.StudentMapper;
 import com.brighties.studentservice.model.Student;
@@ -30,5 +31,12 @@ public class StudentService {
     public StudentResponseDTO getStudentById(Long id) {
         Optional<Student> student = studentRepository.findById(id);
         return StudentMapper.toDTO(student.get());
+    }
+
+    public StudentResponseDTO createStudent(StudentRequestDTO studentRequestDTO) {
+        Student newStudent = studentRepository.
+                save(StudentMapper.toModel(studentRequestDTO));
+
+        return StudentMapper.toDTO(newStudent);
     }
 }
