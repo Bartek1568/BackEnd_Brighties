@@ -7,6 +7,7 @@ import com.brighties.studentservice.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,8 +23,12 @@ public class StudentService {
         List<Student> students =  studentRepository.findAll();
 
         return students.stream().
-                map(student ->StudentMapper.toDTO(student)).collect(Collectors.toList());
+                map(student ->StudentMapper.toDTO(student))
+                .collect(Collectors.toList());
+    }
 
-
+    public StudentResponseDTO getStudentById(Long id) {
+        Optional<Student> student = studentRepository.findById(id);
+        return StudentMapper.toDTO(student.get());
     }
 }
