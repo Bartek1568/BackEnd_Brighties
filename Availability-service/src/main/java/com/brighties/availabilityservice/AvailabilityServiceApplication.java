@@ -1,13 +1,13 @@
-package com.brighties.avalibilityservice;
+package com.brighties.availabilityservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AvalibilityServiceApplication {
+public class AvailabilityServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AvalibilityServiceApplication.class, args);
+        SpringApplication.run(AvailabilityServiceApplication.class, args);
     }
 
 }

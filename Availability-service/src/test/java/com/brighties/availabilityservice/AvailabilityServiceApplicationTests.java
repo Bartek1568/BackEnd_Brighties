@@ -1,10 +1,10 @@
-package com.brighties.avalibilityservice;
+package com.brighties.availabilityservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AvalibilityServiceApplicationTests {
+class AvailabilityServiceApplicationTests {
 
     @Test
     void contextLoads() {

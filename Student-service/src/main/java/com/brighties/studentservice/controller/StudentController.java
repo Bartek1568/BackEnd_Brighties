@@ -3,9 +3,7 @@ package com.brighties.studentservice.controller;
 
 import com.brighties.studentservice.dto.StudentRequestDTO;
 import com.brighties.studentservice.dto.StudentResponseDTO;
-import com.brighties.studentservice.model.Student;
 import com.brighties.studentservice.service.StudentService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
