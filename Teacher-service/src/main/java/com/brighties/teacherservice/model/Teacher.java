@@ -7,9 +7,6 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "teachers")
 public class Teacher {
 
     @Id
