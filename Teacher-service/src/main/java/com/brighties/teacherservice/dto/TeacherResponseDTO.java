@@ -5,6 +5,13 @@ public class TeacherResponseDTO {
 
     private String id;
 
+    private String name;
+    private String surname;
+    private String email;
+    private String age;
+    private String phoneNumber;
+    private String description;
+
     public String getName() {
         return name;
     }
@@ -61,11 +68,6 @@ public class TeacherResponseDTO {
         this.description = description;
     }
 
-    private String name;
-    private String surname;
-    private String email;
-    private String age;
-    private String phoneNumber;
-    private String description;
+
 
 }
