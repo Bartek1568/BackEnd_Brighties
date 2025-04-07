@@ -4,6 +4,33 @@ import jakarta.validation.constraints.NotBlank;
 
 public class AvailabilitySlotRequestDTO {
 
+    @NotBlank
+    private String teacherId;
+
+    @NotBlank
+    private String date;
+
+    @NotBlank
+    private String dayOfWeek;
+
+    @NotBlank
+    private String startTime;
+
+    @NotBlank
+    private String endTime;
+
+    @NotBlank
+    private boolean available;
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public boolean getAvailable() {
+        return available;
+    }
+
+
     public String getTeacherId() {
         return teacherId;
     }
@@ -44,18 +71,5 @@ public class AvailabilitySlotRequestDTO {
         this.endTime = endTime;
     }
 
-    @NotBlank
-    private String teacherId;
 
-    @NotBlank
-    private String date;
-
-    @NotBlank
-    private String dayOfWeek;
-
-    @NotBlank
-    private String startTime;
-
-    @NotBlank
-    private String endTime;
 }

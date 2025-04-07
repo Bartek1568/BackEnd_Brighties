@@ -16,6 +16,18 @@ public class AvailabilitySlotResponseDTO {
 
     private String endTime;
 
+    private String available;
+
+
+    public String getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(String available) {
+        this.available = available;
+    }
+
+
     public String getId() {
         return id;
     }
