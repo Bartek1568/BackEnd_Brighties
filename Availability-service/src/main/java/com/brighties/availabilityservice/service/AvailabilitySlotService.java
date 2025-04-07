@@ -1,5 +1,6 @@
 package com.brighties.availabilityservice.service;
 
+import com.brighties.availabilityservice.dto.AvailabilitySlotRequestDTO;
 import com.brighties.availabilityservice.dto.AvailabilitySlotResponseDTO;
 import com.brighties.availabilityservice.mapper.AvailabilitySlotMapper;
 import com.brighties.availabilityservice.model.AvailabilitySlot;
@@ -24,6 +25,12 @@ public class AvailabilitySlotService {
 
         return slots.stream().map(availabilitySlot -> AvailabilitySlotMapper.toDTO(availabilitySlot)).
                 collect(Collectors.toList());
+    }
+
+    public AvailabilitySlotResponseDTO createAvailabilitySlot(Long teacherId, LocalDate date, AvailabilitySlotRequestDTO requestDTO) {
+        AvailabilitySlot newAvailabilitySlot = repository.save(AvailabilitySlotMapper.toModel(requestDTO));
+
+        return AvailabilitySlotMapper.toDTO(newAvailabilitySlot);
     }
 
 
