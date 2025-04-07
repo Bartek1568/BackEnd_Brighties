@@ -28,6 +28,9 @@ public class AvailabilitySlot {
 
     private LocalTime endTime;
 
+    private boolean available = false;
+
+
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
@@ -44,7 +47,6 @@ public class AvailabilitySlot {
         this.available = available;
     }
 
-    private boolean available = false;
 
     public Long getId() {
         return id;
