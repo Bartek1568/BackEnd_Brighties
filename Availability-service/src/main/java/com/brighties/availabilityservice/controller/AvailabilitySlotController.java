@@ -20,8 +20,8 @@ public class AvailabilitySlotController {
         this.availabilitySlotService = availabilitySlotService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<AvailabilitySlotResponseDTO>> getAvailabilitySlotsByTeacher(@PathVariable Long teacherId, @PathVariable LocalDate date) {
+    @GetMapping
+    public ResponseEntity<List<AvailabilitySlotResponseDTO>> getAvailabilitySlotsByTeacherAndDate(@RequestParam Long teacherId, @RequestParam LocalDate date) {
 
         List<AvailabilitySlotResponseDTO> availabilitySlots = availabilitySlotService.getAvailabilityByTeacher(teacherId, date);
 
@@ -35,14 +35,14 @@ public class AvailabilitySlotController {
         return ResponseEntity.ok().body(availabilitySlotResponseDTO);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteAvailabilitySlot(@RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteAvailabilitySlot(@PathVariable Long id) {
         availabilitySlotService.deleteAvailabilitySlot(id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
-    public ResponseEntity<AvailabilitySlotResponseDTO> updateAvailabilitySlot(@RequestBody Long id, @RequestBody AvailabilitySlotRequestDTO availabilitySlotRequestDTO) {
+    @PutMapping("/{id}")
+    public ResponseEntity<AvailabilitySlotResponseDTO> updateAvailabilitySlot(@PathVariable Long id, @RequestBody AvailabilitySlotRequestDTO availabilitySlotRequestDTO) {
         AvailabilitySlotResponseDTO availabilitySlotResponseDTO = availabilitySlotService.updateAvailabilitySlot(id, availabilitySlotRequestDTO);
         return ResponseEntity.ok().body(availabilitySlotResponseDTO);
     }

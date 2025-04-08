@@ -30,10 +30,6 @@ public class AvailabilitySlot {
 
     private boolean isAvailable = false;
 
-    private boolean isReoccurring = false;
-
-    private LocalDate reoccurringUntilDate;
-
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
@@ -93,19 +89,4 @@ public class AvailabilitySlot {
     }
 
 
-    public boolean getIsReoccurring() {
-        return isReoccurring;
-    }
-
-    public void setIsReoccurring(boolean reoccurring) {
-        this.isReoccurring = reoccurring;
-    }
-
-    public LocalDate getReoccurringUntilDate() {
-        return reoccurringUntilDate;
-    }
-
-    public void setReoccurringUntilDate(LocalDate reoccurringUntilDate) {
-        this.reoccurringUntilDate = reoccurringUntilDate;
-    }
 }

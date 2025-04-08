@@ -18,9 +18,6 @@ public class AvailabilitySlotResponseDTO {
 
     private String available;
 
-    private String reoccurring;
-
-    private String reoccurringUntilDate;
 
 
     public String getAvailable() {
@@ -81,19 +78,5 @@ public class AvailabilitySlotResponseDTO {
     }
 
 
-    public String getReoccurring() {
-        return reoccurring;
     }
 
-    public void setReoccurring(String reoccurring) {
-        this.reoccurring = reoccurring;
-    }
-
-    public String getReoccurringUntilDate() {
-        return reoccurringUntilDate;
-    }
-
-    public void setReoccurringUntilDate(String reoccurringUntilDate) {
-        this.reoccurringUntilDate = reoccurringUntilDate;
-    }
-}
