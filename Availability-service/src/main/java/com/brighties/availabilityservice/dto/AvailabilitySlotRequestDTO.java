@@ -20,14 +20,34 @@ public class AvailabilitySlotRequestDTO {
     private String endTime;
 
     @NotBlank
-    private boolean available;
+    private boolean isAvailable;
+
+    @NotBlank
+    private boolean isReoccurring;
+
+    @NotBlank
+    private String reoccurringDate;
+
+    public void setReoccurring(boolean reoccurring) {
+        this.isReoccurring = reoccurring;
+    }
+    public boolean getIsReoccurring() {
+        return isReoccurring;
+    }
+
+    public void setReoccurringDate(String reoccurringDate) {
+        this.reoccurringDate = reoccurringDate;
+    }
+    public String getReoccurringDate() {
+        return reoccurringDate;
+    }
 
     public void setAvailable(boolean available) {
-        this.available = available;
+        this.isAvailable = available;
     }
 
     public boolean getAvailable() {
-        return available;
+        return isAvailable;
     }
 
 

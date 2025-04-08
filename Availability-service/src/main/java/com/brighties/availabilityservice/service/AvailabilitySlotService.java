@@ -48,7 +48,9 @@ public class AvailabilitySlotService {
         availabilitySlot.get().setTeacherId(Long.valueOf(requestDTO.getTeacherId()));
         availabilitySlot.get().setStartTime(LocalTime.parse(requestDTO.getStartTime()));
         availabilitySlot.get().setEndTime(LocalTime.parse(requestDTO.getEndTime()));
-        availabilitySlot.get().setAvailable(requestDTO.getAvailable());
+        availabilitySlot.get().setIsAvailable(requestDTO.getAvailable());
+        availabilitySlot.get().setIsReoccurring(requestDTO.getIsReoccurring());
+        availabilitySlot.get().setReoccurringUntilDate(LocalDate.parse(requestDTO.getReoccurringDate()));
 
         AvailabilitySlot savedAvailabilitySlot = repository.save(availabilitySlot.get());
 
