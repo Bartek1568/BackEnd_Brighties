@@ -23,7 +23,7 @@ public class AvailabilitySlotService {
         this.repository = repository;
     }
 
-    public List<AvailabilitySlotResponseDTO> getAvailabilityByTeacher(Long teacherId, LocalDate date) {
+    public List<AvailabilitySlotResponseDTO> getAvailabilityByTeacherAndDate(Long teacherId, LocalDate date) {
         List<AvailabilitySlot> slots = repository.findByTeacherIdAndDate(teacherId, date);
 
         return slots.stream().map(availabilitySlot -> AvailabilitySlotMapper.toDTO(availabilitySlot)).

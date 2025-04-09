@@ -5,6 +5,7 @@ import com.brighties.reservationservice.dto.ReservationResponseDTO;
 import com.brighties.reservationservice.mapper.ReservationMapper;
 import com.brighties.reservationservice.model.Reservation;
 import com.brighties.reservationservice.repository.ReservationRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+@Service
 public class ReservationService {
 
     private ReservationRepository reservationRepository;
@@ -62,6 +65,8 @@ public class ReservationService {
         reservation.get().setEndTime(LocalTime.parse(reservationRequestDTO.getEndTime()));
         reservation.get().setStatus(Reservation.Status.valueOf(reservationRequestDTO.getStatus()));
         reservation.get().setNote(reservationRequestDTO.getNote());
+
+        return ReservationMapper.toDTO(reservationRepository.save(reservation.get()));
     }
 
 

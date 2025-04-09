@@ -23,7 +23,7 @@ public class AvailabilitySlotController {
     @GetMapping
     public ResponseEntity<List<AvailabilitySlotResponseDTO>> getAvailabilitySlotsByTeacherAndDate(@RequestParam Long teacherId, @RequestParam LocalDate date) {
 
-        List<AvailabilitySlotResponseDTO> availabilitySlots = availabilitySlotService.getAvailabilityByTeacher(teacherId, date);
+        List<AvailabilitySlotResponseDTO> availabilitySlots = availabilitySlotService.getAvailabilityByTeacherAndDate(teacherId, date);
 
         return ResponseEntity.ok().body(availabilitySlots);
     }
