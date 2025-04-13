@@ -2,6 +2,7 @@ package com.brighties.availabilityservice.service;
 
 import com.brighties.availabilityservice.dto.AvailabilitySlotRequestDTO;
 import com.brighties.availabilityservice.dto.AvailabilitySlotResponseDTO;
+import com.brighties.availabilityservice.grpc.TeacherGrpcClient;
 import com.brighties.availabilityservice.mapper.AvailabilitySlotMapper;
 import com.brighties.availabilityservice.model.AvailabilitySlot;
 import com.brighties.availabilityservice.repository.AvailabilitySlotRepository;
@@ -18,9 +19,11 @@ import java.util.stream.Collectors;
 public class AvailabilitySlotService {
 
     private AvailabilitySlotRepository repository;
+    private final TeacherGrpcClient teacherGrpcClient;
 
-    public AvailabilitySlotService(AvailabilitySlotRepository repository) {
+    public AvailabilitySlotService(AvailabilitySlotRepository repository, TeacherGrpcClient teacherGrpcClient) {
         this.repository = repository;
+        this.teacherGrpcClient = teacherGrpcClient;
     }
 
     public List<AvailabilitySlotResponseDTO> getAvailabilityByTeacherAndDate(Long teacherId, LocalDate date) {
@@ -31,7 +34,13 @@ public class AvailabilitySlotService {
     }
 
     public AvailabilitySlotResponseDTO createAvailabilitySlot( AvailabilitySlotRequestDTO requestDTO) {
+
+        Long teacherId = Long.valueOf(requestDTO.getTeacherId());
+        if (!teacherGrpcClient.checkTeacherExists(teacherId)) {
+            throw new IllegalArgumentException("Teacher with ID " + teacherId + " does not exist");
+        }
         AvailabilitySlot newAvailabilitySlot = repository.save(AvailabilitySlotMapper.toModel(requestDTO));
+
 
         return AvailabilitySlotMapper.toDTO(newAvailabilitySlot);
     }
