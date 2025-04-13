@@ -2,6 +2,7 @@ package com.brighties.reservationservice.service;
 
 import com.brighties.reservationservice.dto.ReservationRequestDTO;
 import com.brighties.reservationservice.dto.ReservationResponseDTO;
+import com.brighties.reservationservice.event.SlotReservedEvent;
 import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
 import com.brighties.reservationservice.grpc.StudentGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
@@ -22,11 +23,14 @@ public class ReservationService {
     private ReservationRepository reservationRepository;
     private final StudentGrpcClient studentGrpcClient;
     private final AvailabilityGrpcClient availabilityGrpcClient;
+    private final ReservationEventPublisher eventPublisher;
 
-    public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient, AvailabilityGrpcClient availabilityGrpcClient) {
+    public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient,
+                              AvailabilityGrpcClient availabilityGrpcClient, ReservationEventPublisher eventPublisher) {
         this.reservationRepository = reservationRepository;
         this.studentGrpcClient = studentGrpcClient;
         this.availabilityGrpcClient = availabilityGrpcClient;
+        this.eventPublisher = eventPublisher;
     }
 
     public List<ReservationResponseDTO> getReservationsByTeacherId(Long teacherId){
@@ -51,6 +55,23 @@ public class ReservationService {
     }
 
     public ReservationResponseDTO createReservation(ReservationRequestDTO reservationRequestDTO){
+        checkIfStudentAndTeacherExists(reservationRequestDTO);
+
+        Reservation newReservation = reservationRepository.save(ReservationMapper.toModel(reservationRequestDTO));
+
+        SlotReservedEvent event = new SlotReservedEvent(
+                Long.valueOf(reservationRequestDTO.getTeacherId()),
+                reservationRequestDTO.getDate(),
+                reservationRequestDTO.getStartTime(),
+                reservationRequestDTO.getEndTime()
+        );
+        eventPublisher.sendSlotReservedEvent(event);
+
+        return ReservationMapper.toDTO(newReservation);
+
+    }
+
+    private void checkIfStudentAndTeacherExists(ReservationRequestDTO reservationRequestDTO){
         Long studentId = Long.valueOf(reservationRequestDTO.getStudentId());
 
         if (!studentGrpcClient.checkStudentExists(studentId)) {
@@ -67,11 +88,6 @@ public class ReservationService {
         if (!isAvailable) {
             throw new IllegalArgumentException("Selected slot is not available");
         }
-
-        Reservation newReservation = reservationRepository.save(ReservationMapper.toModel(reservationRequestDTO));
-
-        return ReservationMapper.toDTO(newReservation);
-
     }
 
     public void deleteReservation(Long reservationId){

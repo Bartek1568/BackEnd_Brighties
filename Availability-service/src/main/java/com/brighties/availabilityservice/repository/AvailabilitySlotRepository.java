@@ -12,6 +12,8 @@ import java.util.List;
 public interface AvailabilitySlotRepository extends JpaRepository<AvailabilitySlot, Long> {
 
     List<AvailabilitySlot> findByTeacherIdAndDate(Long teacherId, LocalDate date);
+    AvailabilitySlot findByTeacherIdAndDateAndStartTimeAndEndTime(Long teacherId, LocalDate date, LocalTime start, LocalTime end);
+
 
     @Query("SELECT COUNT(a) > 0 FROM AvailabilitySlot a " +
             "WHERE a.teacherId = :teacherId " +
