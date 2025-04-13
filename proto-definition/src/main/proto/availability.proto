@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package availability;
+
+option java_multiple_files = true;
+
+
+service AvailabilityService {
+  rpc CheckSlotAvailability (CheckSlotRequest) returns (SlotAvailabilityResponse);
+}
+
+message CheckSlotRequest {
+  int64 teacher_id = 1;
+  string date = 2;
+  string day_of_week = 3;
+  string start_time = 4;
+  string end_time = 5;
+}
+
+message SlotAvailabilityResponse {
+  bool available = 1;
+}
