@@ -8,6 +8,10 @@ public class ReservationResponseDTO {
 
     private String studentId;
 
+
+
+    private String reservationId;
+
     private String date;
 
     private String startTime;
@@ -80,6 +84,14 @@ public class ReservationResponseDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(String reservationId) {
+        this.reservationId = reservationId;
     }
 
 

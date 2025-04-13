@@ -2,6 +2,7 @@ package com.brighties.reservationservice.service;
 
 import com.brighties.reservationservice.dto.ReservationRequestDTO;
 import com.brighties.reservationservice.dto.ReservationResponseDTO;
+import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
 import com.brighties.reservationservice.grpc.StudentGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
 import com.brighties.reservationservice.model.Reservation;
@@ -20,10 +21,12 @@ public class ReservationService {
 
     private ReservationRepository reservationRepository;
     private final StudentGrpcClient studentGrpcClient;
+    private final AvailabilityGrpcClient availabilityGrpcClient;
 
-    public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient) {
+    public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient, AvailabilityGrpcClient availabilityGrpcClient) {
         this.reservationRepository = reservationRepository;
         this.studentGrpcClient = studentGrpcClient;
+        this.availabilityGrpcClient = availabilityGrpcClient;
     }
 
     public List<ReservationResponseDTO> getReservationsByTeacherId(Long teacherId){
@@ -53,6 +56,18 @@ public class ReservationService {
         if (!studentGrpcClient.checkStudentExists(studentId)) {
             throw new IllegalArgumentException("Student with ID " + studentId + " does not exist");
         }
+
+        boolean isAvailable = availabilityGrpcClient.checkSlotAvailable(
+                Long.valueOf(reservationRequestDTO.getReservationId()),
+                reservationRequestDTO.getDate(),
+                reservationRequestDTO.getStartTime(),
+                reservationRequestDTO.getEndTime()
+        );
+
+        if (!isAvailable) {
+            throw new IllegalArgumentException("Selected slot is not available");
+        }
+
         Reservation newReservation = reservationRepository.save(ReservationMapper.toModel(reservationRequestDTO));
 
         return ReservationMapper.toDTO(newReservation);

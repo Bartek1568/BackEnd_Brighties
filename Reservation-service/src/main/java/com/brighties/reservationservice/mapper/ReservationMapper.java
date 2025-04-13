@@ -19,6 +19,7 @@ public class ReservationMapper {
         reservationDTO.setEndTime(reservation.getEndTime().toString());
         reservationDTO.setStatus(reservation.getStatus().toString());
         reservationDTO.setNote(reservation.getNote());
+        reservationDTO.setReservationId(String.valueOf(reservation.getAvailabilitySlotId()));
 
         return reservationDTO;
 
@@ -33,6 +34,7 @@ public class ReservationMapper {
         reservation.setEndTime(LocalTime.parse(reservationDTO.getEndTime()));
         reservation.setStatus(Reservation.Status.valueOf(reservationDTO.getStatus()));
         reservation.setNote(reservationDTO.getNote());
+        reservation.setAvailabilitySlotId(Long.valueOf(reservationDTO.getReservationId()));
 
         return reservation;
     }

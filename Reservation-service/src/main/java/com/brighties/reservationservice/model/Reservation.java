@@ -21,6 +21,10 @@ public class Reservation {
 
     private Long studentId;
 
+
+
+    private Long availabilitySlotId;
+
     private LocalDate date;
 
     private LocalTime startTime;
@@ -99,6 +103,14 @@ public class Reservation {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Long getAvailabilitySlotId() {
+        return availabilitySlotId;
+    }
+
+    public void setAvailabilitySlotId(Long availabilitySlotId) {
+        this.availabilitySlotId = availabilitySlotId;
     }
 
 
