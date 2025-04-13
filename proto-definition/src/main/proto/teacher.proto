@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package teacher;
+
+option java_multiple_files = true;
+
+
+service TeacherService {
+  rpc CheckTeacherExistence (TeacherRequest) returns (TeacherExistenceResponse);
+}
+
+message TeacherRequest {
+  int64 teacher_id = 1;
+}
+
+message TeacherExistenceResponse {
+  bool exists = 1;
+}
