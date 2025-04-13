@@ -11,9 +11,19 @@
     <groupId>com.brighties</groupId>
     <artifactId>BackEnd_Brighties</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>BackEnd Brighties</name>
     <description>BackEnd Brighties</description>
     <url/>
+
+    <modules>
+        <module>proto-definition</module>
+        <module>Teacher-service</module>
+        <module>Student-service</module>
+        <module>Availability-service</module>
+        <module>Reservation-service</module>
+    </modules>
+
     <licenses>
         <license/>
     </licenses>
