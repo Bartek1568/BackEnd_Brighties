@@ -2,6 +2,7 @@ package com.brighties.reservationservice.service;
 
 import com.brighties.reservationservice.dto.ReservationRequestDTO;
 import com.brighties.reservationservice.dto.ReservationResponseDTO;
+import com.brighties.reservationservice.grpc.StudentGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
 import com.brighties.reservationservice.model.Reservation;
 import com.brighties.reservationservice.repository.ReservationRepository;
@@ -18,9 +19,11 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private ReservationRepository reservationRepository;
+    private final StudentGrpcClient studentGrpcClient;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient) {
         this.reservationRepository = reservationRepository;
+        this.studentGrpcClient = studentGrpcClient;
     }
 
     public List<ReservationResponseDTO> getReservationsByTeacherId(Long teacherId){
@@ -45,6 +48,11 @@ public class ReservationService {
     }
 
     public ReservationResponseDTO createReservation(ReservationRequestDTO reservationRequestDTO){
+        Long studentId = Long.valueOf(reservationRequestDTO.getStudentId());
+
+        if (!studentGrpcClient.checkStudentExists(studentId)) {
+            throw new IllegalArgumentException("Student with ID " + studentId + " does not exist");
+        }
         Reservation newReservation = reservationRepository.save(ReservationMapper.toModel(reservationRequestDTO));
 
         return ReservationMapper.toDTO(newReservation);
