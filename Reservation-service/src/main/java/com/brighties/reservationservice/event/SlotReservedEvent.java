@@ -9,6 +9,12 @@ public class SlotReservedEvent {
     private String startTime;
     private String endTime;
 
+    public SlotReservedEvent(String endTime, String startTime, String date, Long teacherId) {
+        this.endTime = endTime;
+        this.startTime = startTime;
+        this.date = date;
+        this.teacherId = teacherId;
+    }
 
     public String getDate() {
         return date;
