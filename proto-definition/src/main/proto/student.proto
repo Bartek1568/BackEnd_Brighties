@@ -7,6 +7,8 @@ option java_multiple_files = true;
 
 service StudentService {
   rpc CheckStudentExistence (StudentRequest) returns (StudentExistenceResponse);
+  rpc GetStudentInfo (StudentRequest) returns (StudentInfoResponse);
+
 }
 
 message StudentRequest {
@@ -15,4 +17,12 @@ message StudentRequest {
 
 message StudentExistenceResponse {
   bool exists = 1;
+}
+
+message StudentInfoResponse {
+  bool exists = 1;
+  string email = 2;
+  string name = 3;
+  string surname = 4;
+  string phone = 5;
 }

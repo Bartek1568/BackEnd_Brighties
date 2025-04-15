@@ -28,4 +28,24 @@ public class StudentGrpcServiceImpl extends StudentServiceGrpc.StudentServiceImp
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getStudentInfo(StudentRequest request, StreamObserver<student.StudentInfoResponse> responseObserver) {
+        student.StudentInfoResponse.Builder responseBuilder = student.StudentInfoResponse.newBuilder();
+
+        studentRepository.findById(request.getStudentId()).ifPresentOrElse(student -> {
+            responseBuilder
+                    .setExists(true)
+                    .setEmail(student.getEmail())
+                    .setName(student.getName())
+                    .setSurname(student.getSurname())
+                    .setPhone(student.getPhoneNumber());
+        }, () -> {
+            responseBuilder.setExists(false);
+        });
+
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+    }
+
 }
