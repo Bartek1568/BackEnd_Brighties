@@ -52,11 +52,11 @@ public class AvailabilitySlotService {
     public AvailabilitySlotResponseDTO updateAvailabilitySlot(Long id, AvailabilitySlotRequestDTO requestDTO) {
         Optional<AvailabilitySlot> availabilitySlot = repository.findById(id);
 
-        availabilitySlot.get().setDate(LocalDate.parse(requestDTO.getDate()));
-        availabilitySlot.get().setDayOfWeek(DayOfWeek.valueOf(requestDTO.getDayOfWeek()));
-        availabilitySlot.get().setTeacherId(Long.valueOf(requestDTO.getTeacherId()));
-        availabilitySlot.get().setStartTime(LocalTime.parse(requestDTO.getStartTime()));
-        availabilitySlot.get().setEndTime(LocalTime.parse(requestDTO.getEndTime()));
+        availabilitySlot.get().setDate(requestDTO.getDate());
+        availabilitySlot.get().setDayOfWeek(requestDTO.getDayOfWeek());
+        availabilitySlot.get().setTeacherId(requestDTO.getTeacherId());
+        availabilitySlot.get().setStartTime(requestDTO.getStartTime());
+        availabilitySlot.get().setEndTime(requestDTO.getEndTime());
         availabilitySlot.get().setIsAvailable(requestDTO.getAvailable());
 
         AvailabilitySlot savedAvailabilitySlot = repository.save(availabilitySlot.get());

@@ -2,22 +2,26 @@ package com.brighties.availabilityservice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class AvailabilitySlotRequestDTO {
 
     @NotBlank
-    private String teacherId;
+    private Long teacherId;
 
     @NotBlank
-    private String date;
+    private LocalDate date;
 
     @NotBlank
-    private String dayOfWeek;
+    private DayOfWeek dayOfWeek;
 
     @NotBlank
-    private String startTime;
+    private LocalTime startTime;
 
     @NotBlank
-    private String endTime;
+    private LocalTime endTime;
 
     @NotBlank
     private boolean isAvailable;
@@ -31,43 +35,43 @@ public class AvailabilitySlotRequestDTO {
     }
 
 
-    public String getTeacherId() {
+    public Long getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(String teacherId) {
+    public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getDayOfWeek() {
+    public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

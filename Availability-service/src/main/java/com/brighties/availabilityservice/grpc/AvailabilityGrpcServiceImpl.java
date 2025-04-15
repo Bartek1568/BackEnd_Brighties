@@ -24,21 +24,17 @@ public class AvailabilityGrpcServiceImpl extends AvailabilityServiceGrpc.Availab
 
     @Override
     public void checkSlotAvailability(CheckSlotRequest request, StreamObserver<SlotAvailabilityResponse> responseObserver) {
-        // Parsowanie danych z requestu
         Long teacherId = request.getTeacherId();
-        LocalDate date = LocalDate.parse(request.getDate());  // Zakładam format ISO (yyyy-MM-dd)
+        LocalDate date = LocalDate.parse(request.getDate());
         LocalTime startTime = LocalTime.parse(request.getStartTime(), DateTimeFormatter.ISO_TIME);
         LocalTime endTime = LocalTime.parse(request.getEndTime(), DateTimeFormatter.ISO_TIME);
 
-        // Sprawdzanie dostępności slotu
         boolean isAvailable = repository.isSlotAvailable(teacherId, date, startTime, endTime);
 
-        // Tworzenie odpowiedzi
         SlotAvailabilityResponse response = SlotAvailabilityResponse.newBuilder()
                 .setAvailable(isAvailable)
                 .build();
 
-        // Wysłanie odpowiedzi do klienta
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

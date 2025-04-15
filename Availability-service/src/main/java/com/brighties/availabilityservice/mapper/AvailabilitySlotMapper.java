@@ -12,13 +12,13 @@ public class AvailabilitySlotMapper {
 
     public static AvailabilitySlotResponseDTO toDTO(AvailabilitySlot availabilitySlot) {
         AvailabilitySlotResponseDTO availabilitySlotDTO = new AvailabilitySlotResponseDTO();
-        availabilitySlotDTO.setId(availabilitySlot.getId().toString());
-        availabilitySlotDTO.setDate(availabilitySlot.toString());
-        availabilitySlotDTO.setTeacherId(availabilitySlot.getTeacherId().toString());
-        availabilitySlotDTO.setDayOfWeek(availabilitySlot.getDayOfWeek().toString());
-        availabilitySlotDTO.setStartTime(availabilitySlot.getStartTime().toString());
-        availabilitySlotDTO.setEndTime(availabilitySlot.getEndTime().toString());
-        availabilitySlotDTO.setAvailable(String.valueOf(availabilitySlot.getIsAvailable()));
+        availabilitySlotDTO.setId(availabilitySlot.getId());
+        availabilitySlotDTO.setDate(availabilitySlot.getDate());
+        availabilitySlotDTO.setTeacherId(availabilitySlot.getTeacherId());
+        availabilitySlotDTO.setDayOfWeek(availabilitySlot.getDayOfWeek());
+        availabilitySlotDTO.setStartTime(availabilitySlot.getStartTime());
+        availabilitySlotDTO.setEndTime(availabilitySlot.getEndTime());
+        availabilitySlotDTO.setAvailable(availabilitySlot.getIsAvailable());
 
 
         return availabilitySlotDTO;
@@ -27,12 +27,12 @@ public class AvailabilitySlotMapper {
     public static AvailabilitySlot toModel(AvailabilitySlotRequestDTO availabilitySlotDTO) {
         AvailabilitySlot availabilitySlot = new AvailabilitySlot();
 
-        availabilitySlot.setTeacherId(Long.valueOf(availabilitySlotDTO.getTeacherId()));
-        availabilitySlot.setDate(LocalDate.parse(availabilitySlotDTO.getDate()));
-        availabilitySlot.setStartTime(LocalTime.parse(availabilitySlotDTO.getStartTime()));
-        availabilitySlot.setEndTime(LocalTime.parse(availabilitySlotDTO.getEndTime()));
-        availabilitySlot.setDayOfWeek(DayOfWeek.valueOf(availabilitySlotDTO.getDayOfWeek()));
-        availabilitySlot.setIsAvailable(Boolean.valueOf(availabilitySlotDTO.getAvailable()));
+        availabilitySlot.setTeacherId(availabilitySlotDTO.getTeacherId());
+        availabilitySlot.setDate(availabilitySlotDTO.getDate());
+        availabilitySlot.setStartTime(availabilitySlotDTO.getStartTime());
+        availabilitySlot.setEndTime(availabilitySlotDTO.getEndTime());
+        availabilitySlot.setDayOfWeek(availabilitySlotDTO.getDayOfWeek());
+        availabilitySlot.setIsAvailable(availabilitySlotDTO.getAvailable());
 
         return availabilitySlot;
 
