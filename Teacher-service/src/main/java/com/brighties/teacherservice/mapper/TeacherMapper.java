@@ -11,9 +11,9 @@ public class TeacherMapper {
         teacherDTO.setName(teacher.getName());
         teacherDTO.setSurname(teacher.getSurname());
         teacherDTO.setEmail(teacher.getEmail());
-        teacherDTO.setAge(teacher.getAge().toString());
+        teacherDTO.setAge(teacher.getAge());
         teacherDTO.setDescription(teacher.getDescription());
-        teacherDTO.setPhoneNumber(teacher.getPhoneNumber().toString());
+        teacherDTO.setPhoneNumber(teacher.getPhoneNumber());
         return teacherDTO;
 
     }
@@ -23,9 +23,9 @@ public class TeacherMapper {
         teacher.setName(teacherDTO.getName());
         teacher.setSurname(teacherDTO.getSurname());
         teacher.setEmail(teacherDTO.getEmail());
-        teacher.setAge(Integer.parseInt(teacherDTO.getAge()));
+        teacher.setAge(teacherDTO.getAge());
         teacher.setDescription(teacherDTO.getDescription());
-        teacher.setPhoneNumber(Integer.parseInt(teacherDTO.getPhoneNumber()));
+        teacher.setPhoneNumber(teacherDTO.getPhoneNumber());
         return teacher;
     }
 

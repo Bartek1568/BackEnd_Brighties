@@ -51,8 +51,8 @@ public class TeacherService {
 
         teacher.setName(teacherRequestDTO.getName());
         teacher.setSurname(teacherRequestDTO.getSurname());
-        teacher.setAge(Integer.valueOf(teacherRequestDTO.getAge()));
-        teacher.setPhoneNumber(Integer.valueOf(teacherRequestDTO.getPhoneNumber()));
+        teacher.setAge(teacherRequestDTO.getAge());
+        teacher.setPhoneNumber(teacherRequestDTO.getPhoneNumber());
         teacher.setDescription(teacherRequestDTO.getDescription());
         teacher.setEmail(teacherRequestDTO.getEmail());
 

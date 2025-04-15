@@ -8,8 +8,8 @@ public class TeacherResponseDTO {
     private String name;
     private String surname;
     private String email;
-    private String age;
-    private String phoneNumber;
+    private Integer age;
+    private Integer phoneNumber;
     private String description;
 
     public String getName() {
@@ -44,19 +44,19 @@ public class TeacherResponseDTO {
         this.email = email;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

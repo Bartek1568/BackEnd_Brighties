@@ -19,19 +19,20 @@ public class TeacherRequestDTO {
     private String surname;
 
     @NotBlank(message = "age is required")
-    private String age;
+    private Integer age;
 
     @NotBlank(message = "phone number is required")
-    private String phoneNumber;
+    private Integer phoneNumber;
 
     @NotBlank(message = "description is required")
     private String description;
 
-    public String getPhoneNumber() {
+    @NotBlank(message = "phone number is required")
+    public  Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -59,11 +60,11 @@ public class TeacherRequestDTO {
         this.surname = surname;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
