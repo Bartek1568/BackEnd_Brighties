@@ -25,24 +25,13 @@ public class Student {
 
     private String email;
 
-    private String phoneNumber;
+    private Integer phoneNumber;
 
-    private Goal goal;
+    private String goal;
 
     private String course;
 
     private Integer grade;
-
-    public enum Goal{
-        MATURA,
-        EGZAMIN_8_KLASISTY,
-        OLIMPIADA,
-        KONKURS,
-        EGZAMIN,
-        NADROBIENIE_BRAKÓW,
-        POLEPSZENIE_OCEN
-    }
-
 
     public Long getId() {
         return id;
@@ -84,19 +73,19 @@ public class Student {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public Goal getGoal() {
+    public String getGoal() {
         return goal;
     }
 
-    public void setGoal(Goal goal) {
+    public void setGoal(String goal) {
         this.goal = goal;
     }
 

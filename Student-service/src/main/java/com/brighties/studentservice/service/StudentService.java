@@ -45,12 +45,12 @@ public class StudentService {
 
         student.get().setName(studentRequestDTO.getName());
         student.get().setSurname(studentRequestDTO.getSurname());
-        student.get().setAge(Integer.valueOf(studentRequestDTO.getAge()));
+        student.get().setAge(studentRequestDTO.getAge());
         student.get().setEmail(studentRequestDTO.getEmail());
         student.get().setPhoneNumber(studentRequestDTO.getPhoneNumber());
-        student.get().setGoal(Student.Goal.valueOf(studentRequestDTO.getGoal()));
+        student.get().setGoal(studentRequestDTO.getGoal());
         student.get().setCourse(studentRequestDTO.getCourse());
-        student.get().setGrade(Integer.valueOf(studentRequestDTO.getGrade()));
+        student.get().setGrade(studentRequestDTO.getGrade());
 
         Student updatedStudent = studentRepository.save(student.get());
         return StudentMapper.toDTO(updatedStudent);

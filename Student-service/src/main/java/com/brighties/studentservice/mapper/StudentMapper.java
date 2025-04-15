@@ -8,15 +8,15 @@ public class StudentMapper {
 
     public static StudentResponseDTO toDTO(Student student) {
         StudentResponseDTO studentDTO = new StudentResponseDTO();
-        studentDTO.setId(student.getId().toString());
+        studentDTO.setId(student.getId());
         studentDTO.setName(student.getName());
         studentDTO.setSurname(student.getSurname());
         studentDTO.setEmail(student.getEmail());
         studentDTO.setPhoneNumber(student.getPhoneNumber());
-        studentDTO.setAge(student.getAge().toString());
+        studentDTO.setAge(student.getAge());
         studentDTO.setCourse(student.getCourse());
-        studentDTO.setGoal(student.getGoal().toString());
-        studentDTO.setGrade(student.getGrade().toString());
+        studentDTO.setGoal(student.getGoal());
+        studentDTO.setGrade(student.getGrade());
 
         return studentDTO;
     }
@@ -28,10 +28,10 @@ public class StudentMapper {
         student.setSurname(studentDTO.getSurname());
         student.setEmail(studentDTO.getEmail());
         student.setPhoneNumber(studentDTO.getPhoneNumber());
-        student.setAge(Integer.valueOf(studentDTO.getAge()));
+        student.setAge(studentDTO.getAge());
         student.setCourse(studentDTO.getCourse());
-        student.setGoal(Student.Goal.valueOf(studentDTO.getGoal()));
-        student.setGrade(Integer.valueOf(studentDTO.getGrade()));
+        student.setGoal(studentDTO.getGoal());
+        student.setGrade(studentDTO.getGrade());
         return student;
     }
 }

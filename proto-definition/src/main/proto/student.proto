@@ -24,5 +24,5 @@ message StudentInfoResponse {
   string email = 2;
   string name = 3;
   string surname = 4;
-  string phone = 5;
+  int64 phone = 5;
 }

@@ -12,14 +12,14 @@ public class StudentRequestDTO {
     private String surname;
 
     @NotBlank(message = "Age is required")
-    private String age;
+    private Integer age;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
 
     @NotBlank(message = "Phone number is required")
-    private String phoneNumber;
+    private Integer phoneNumber;
 
     @NotBlank(message = "Goal is required")
     private String goal;
@@ -28,7 +28,7 @@ public class StudentRequestDTO {
     private String course;
 
     @NotBlank(message = "Grade is required")
-    private String grade;
+    private Integer grade;
 
     public String getName() {
         return name;
@@ -46,11 +46,11 @@ public class StudentRequestDTO {
         this.surname = surname;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -62,11 +62,11 @@ public class StudentRequestDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -86,11 +86,11 @@ public class StudentRequestDTO {
         this.course = course;
     }
 
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 }

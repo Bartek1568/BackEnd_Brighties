@@ -2,15 +2,15 @@ package com.brighties.studentservice.dto;
 
 public class StudentResponseDTO {
 
-    private String id;
+    private Long id;
     private String name;
     private String surname;
-    private String age;
+    private Integer age;
     private String email;
-    private String phoneNumber;
+    private Integer phoneNumber;
     private String goal;
     private String course;
-    private String grade;
+    private Integer grade;
 
     public String getName() {
         return name;
@@ -20,11 +20,11 @@ public class StudentResponseDTO {
         this.name = name;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -36,11 +36,11 @@ public class StudentResponseDTO {
         this.surname = surname;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -52,11 +52,11 @@ public class StudentResponseDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -76,11 +76,11 @@ public class StudentResponseDTO {
         this.course = course;
     }
 
-    public String getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 
