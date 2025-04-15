@@ -27,5 +27,24 @@ public class TeacherGrpcServiceImpl extends TeacherServiceGrpc.TeacherServiceImp
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getTeacherInfo(TeacherRequest request, StreamObserver<teacher.TeacherInfoResponse> responseObserver) {
+        teacher.TeacherInfoResponse.Builder responseBuilder = teacher.TeacherInfoResponse.newBuilder();
+
+        teacherRepository.findById(request.getTeacherId()).ifPresentOrElse(teacher -> {
+            responseBuilder
+                    .setTeacherId(teacher.getId())
+                    .setEmail(teacher.getEmail())
+                    .setPhone(String.valueOf(teacher.getPhoneNumber()))
+                    .setName(teacher.getName())
+                    .setSurname(teacher.getSurname());
+        }, () -> {
+        });
+
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+    }
+
 }
 

@@ -7,7 +7,10 @@ option java_multiple_files = true;
 
 service TeacherService {
   rpc CheckTeacherExistence (TeacherRequest) returns (TeacherExistenceResponse);
+  rpc GetTeacherInfo (TeacherRequest) returns (TeacherInfoResponse);
+
 }
+
 
 message TeacherRequest {
   int64 teacher_id = 1;
@@ -16,3 +19,12 @@ message TeacherRequest {
 message TeacherExistenceResponse {
   bool exists = 1;
 }
+
+message TeacherInfoResponse {
+  int64 teacher_id = 1;
+  string email = 2;
+  string phone = 3;
+  string name = 4;
+  string surname = 5;
+}
+
