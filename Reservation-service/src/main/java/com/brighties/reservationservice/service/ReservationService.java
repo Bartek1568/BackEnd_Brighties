@@ -2,6 +2,7 @@ package com.brighties.reservationservice.service;
 
 import com.brighties.reservationservice.dto.ReservationRequestDTO;
 import com.brighties.reservationservice.dto.ReservationResponseDTO;
+import com.brighties.reservationservice.event.ReservationCreatedEvent;
 import com.brighties.reservationservice.event.SlotReservedEvent;
 import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
 import com.brighties.reservationservice.grpc.StudentGrpcClient;
@@ -59,17 +60,31 @@ public class ReservationService {
 
         Reservation newReservation = reservationRepository.save(ReservationMapper.toModel(reservationRequestDTO));
 
-        SlotReservedEvent event = new SlotReservedEvent(
-                Long.valueOf(reservationRequestDTO.getTeacherId()),
-                reservationRequestDTO.getDate(),
-                reservationRequestDTO.getStartTime(),
-                reservationRequestDTO.getEndTime()
-        );
-        eventPublisher.sendSlotReservedEvent(event);
+        publishReservationEvents(newReservation);
 
         return ReservationMapper.toDTO(newReservation);
-
     }
+
+    private void publishReservationEvents(Reservation reservation) {
+        SlotReservedEvent slotEvent = new SlotReservedEvent(
+                reservation.getTeacherId(),
+                reservation.getDate().toString(),
+                reservation.getStartTime().toString(),
+                reservation.getEndTime().toString()
+        );
+        eventPublisher.sendSlotReservedEvent(slotEvent);
+
+        ReservationCreatedEvent createdEvent = new ReservationCreatedEvent(
+                reservation.getId(),
+                reservation.getTeacherId(),
+                reservation.getStudentId(),
+                reservation.getDate().toString(),
+                reservation.getStartTime().toString(),
+                reservation.getEndTime().toString()
+        );
+        eventPublisher.sendReservationCreatedEvent(createdEvent);
+    }
+
 
     private void checkIfStudentAndTeacherExists(ReservationRequestDTO reservationRequestDTO){
         Long studentId = Long.valueOf(reservationRequestDTO.getStudentId());
