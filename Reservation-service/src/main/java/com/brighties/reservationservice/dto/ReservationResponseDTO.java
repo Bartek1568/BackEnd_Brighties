@@ -1,72 +1,68 @@
 package com.brighties.reservationservice.dto;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class ReservationResponseDTO {
 
-    private String Id;
 
-    private String teacherId;
+    private Long teacherId;
 
-    private String studentId;
-
+    private Long studentId;
 
 
-    private String reservationId;
 
-    private String date;
+    private Long reservationId;
 
-    private String startTime;
+    private LocalDate date;
 
-    private String endTime;
+    private LocalTime startTime;
+
+    private LocalTime endTime;
 
     private String status;
 
     private String note;
 
-    public String getId() {
-        return Id;
-    }
 
-    public void setId(String id) {
-        Id = id;
-    }
 
-    public String getTeacherId() {
+    public Long getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(String teacherId) {
+    public void setTeacherId(Long teacherId) {
         this.teacherId = teacherId;
     }
 
-    public String getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -86,11 +82,11 @@ public class ReservationResponseDTO {
         this.note = note;
     }
 
-    public String getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
 
-    public void setReservationId(String reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
 

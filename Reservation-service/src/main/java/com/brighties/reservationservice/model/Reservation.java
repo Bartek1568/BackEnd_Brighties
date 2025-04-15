@@ -31,15 +31,10 @@ public class Reservation {
 
     private LocalTime endTime;
 
-    private Status status;
+    private String status;
 
     private String note;
 
-    public enum Status {
-        CONFIRMED,
-        PENDING,
-        CANCELLED
-    }
 
     public Long getId() {
         return id;
@@ -89,11 +84,11 @@ public class Reservation {
         this.endTime = endTime;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

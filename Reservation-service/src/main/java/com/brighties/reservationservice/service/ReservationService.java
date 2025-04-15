@@ -112,12 +112,12 @@ public class ReservationService {
     public ReservationResponseDTO updateReservation(Long reservationId, ReservationRequestDTO reservationRequestDTO){
         Optional<Reservation> reservation = reservationRepository.findById(reservationId);
 
-        reservation.get().setTeacherId(Long.valueOf(reservationRequestDTO.getTeacherId()));
-        reservation.get().setStudentId(Long.valueOf(reservationRequestDTO.getStudentId()));
-        reservation.get().setDate(LocalDate.parse(reservationRequestDTO.getDate()));
-        reservation.get().setStartTime(LocalTime.parse(reservationRequestDTO.getStartTime()));
-        reservation.get().setEndTime(LocalTime.parse(reservationRequestDTO.getEndTime()));
-        reservation.get().setStatus(Reservation.Status.valueOf(reservationRequestDTO.getStatus()));
+        reservation.get().setTeacherId(reservationRequestDTO.getTeacherId());
+        reservation.get().setStudentId(reservationRequestDTO.getStudentId());
+        reservation.get().setDate(reservationRequestDTO.getDate());
+        reservation.get().setStartTime(reservationRequestDTO.getStartTime());
+        reservation.get().setEndTime(reservationRequestDTO.getEndTime());
+        reservation.get().setStatus(reservationRequestDTO.getStatus());
         reservation.get().setNote(reservationRequestDTO.getNote());
 
         return ReservationMapper.toDTO(reservationRepository.save(reservation.get()));

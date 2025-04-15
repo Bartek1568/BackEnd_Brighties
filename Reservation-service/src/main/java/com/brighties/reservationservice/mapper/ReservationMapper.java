@@ -11,15 +11,14 @@ public class ReservationMapper {
 
     public static ReservationResponseDTO toDTO(Reservation reservation) {
         ReservationResponseDTO reservationDTO = new ReservationResponseDTO();
-        reservationDTO.setId(reservation.getId().toString());
-        reservationDTO.setTeacherId(reservation.getTeacherId().toString());
-        reservationDTO.setStudentId(reservation.getStudentId().toString());
-        reservationDTO.setDate(reservation.getDate().toString());
-        reservationDTO.setStartTime(reservation.getStartTime().toString());
-        reservationDTO.setEndTime(reservation.getEndTime().toString());
-        reservationDTO.setStatus(reservation.getStatus().toString());
+        reservationDTO.setTeacherId(reservation.getTeacherId());
+        reservationDTO.setStudentId(reservation.getStudentId());
+        reservationDTO.setDate(reservation.getDate());
+        reservationDTO.setStartTime(reservation.getStartTime());
+        reservationDTO.setEndTime(reservation.getEndTime());
+        reservationDTO.setStatus(reservation.getStatus());
         reservationDTO.setNote(reservation.getNote());
-        reservationDTO.setReservationId(String.valueOf(reservation.getAvailabilitySlotId()));
+        reservationDTO.setReservationId(reservation.getAvailabilitySlotId());
 
         return reservationDTO;
 
@@ -27,14 +26,15 @@ public class ReservationMapper {
 
     public static Reservation toModel(ReservationRequestDTO reservationDTO) {
         Reservation reservation = new Reservation();
-        reservation.setTeacherId(Long.valueOf(reservationDTO.getTeacherId()));
-        reservation.setStudentId(Long.valueOf(reservationDTO.getStudentId()));
-        reservation.setDate(LocalDate.parse(reservationDTO.getDate()));
-        reservation.setStartTime(LocalTime.parse(reservationDTO.getStartTime()));
-        reservation.setEndTime(LocalTime.parse(reservationDTO.getEndTime()));
-        reservation.setStatus(Reservation.Status.valueOf(reservationDTO.getStatus()));
+        reservation.setId(reservationDTO.getReservationId());
+        reservation.setTeacherId(reservationDTO.getTeacherId());
+        reservation.setStudentId(reservationDTO.getStudentId());
+        reservation.setDate(reservationDTO.getDate());
+        reservation.setStartTime(reservationDTO.getStartTime());
+        reservation.setEndTime(reservationDTO.getEndTime());
+        reservation.setStatus(reservationDTO.getStatus());
         reservation.setNote(reservationDTO.getNote());
-        reservation.setAvailabilitySlotId(Long.valueOf(reservationDTO.getReservationId()));
+        reservation.setAvailabilitySlotId(reservationDTO.getReservationId());
 
         return reservation;
     }
