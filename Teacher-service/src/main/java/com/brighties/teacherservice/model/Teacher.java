@@ -13,22 +13,16 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String surname;
 
-    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private Integer age;
 
-    @Column(nullable = false)
     private Integer phoneNumber;
 
-    @Column(nullable = false)
     private String description;
 
     public Long getId() {

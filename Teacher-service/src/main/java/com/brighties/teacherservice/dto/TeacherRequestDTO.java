@@ -2,6 +2,7 @@ package com.brighties.teacherservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class TeacherRequestDTO {
 
@@ -18,16 +19,16 @@ public class TeacherRequestDTO {
     @NotBlank(message = "surname is required")
     private String surname;
 
-    @NotBlank(message = "age is required")
+    @NotNull(message = "age is required")
     private Integer age;
 
-    @NotBlank(message = "phone number is required")
+    @NotNull(message = "phone number is required")
     private Integer phoneNumber;
 
     @NotBlank(message = "description is required")
     private String description;
 
-    @NotBlank(message = "phone number is required")
+    @NotNull(message = "phone number is required")
     public  Integer getPhoneNumber() {
         return phoneNumber;
     }

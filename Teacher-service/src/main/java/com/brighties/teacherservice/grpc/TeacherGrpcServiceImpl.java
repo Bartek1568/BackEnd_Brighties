@@ -36,7 +36,7 @@ public class TeacherGrpcServiceImpl extends TeacherServiceGrpc.TeacherServiceImp
             responseBuilder
                     .setTeacherId(teacher.getId())
                     .setEmail(teacher.getEmail())
-                    .setPhone(String.valueOf(teacher.getPhoneNumber()))
+                    .setPhone(teacher.getPhoneNumber())
                     .setName(teacher.getName())
                     .setSurname(teacher.getSurname());
         }, () -> {
