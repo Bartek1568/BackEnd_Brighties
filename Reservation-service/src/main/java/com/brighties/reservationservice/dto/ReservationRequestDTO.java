@@ -1,5 +1,6 @@
 package com.brighties.reservationservice.dto;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,6 +14,10 @@ public class ReservationRequestDTO {
     private Long reservationId;
 
     private LocalDate date;
+
+
+
+    private DayOfWeek dayOfWeek;
 
     private LocalTime startTime;
 
@@ -86,5 +91,11 @@ public class ReservationRequestDTO {
         this.reservationId = reservationId;
     }
 
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
 
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
 }

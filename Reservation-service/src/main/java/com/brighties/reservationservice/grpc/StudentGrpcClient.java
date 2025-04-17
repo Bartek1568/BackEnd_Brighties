@@ -14,7 +14,7 @@ public class StudentGrpcClient {
 
     public StudentGrpcClient() {
         ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 9091)
+                .forAddress("localhost", 9093)
                 .usePlaintext()
                 .build();
 

@@ -19,24 +19,24 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReservationResponseDTO>> getReservationsByTeacherId(@RequestParam Long teacherId) {
+    @GetMapping("/teacher/{teacherId}")
+    public ResponseEntity<List<ReservationResponseDTO>> getReservationsByTeacherId(@PathVariable Long teacherId) {
 
         List<ReservationResponseDTO> reservations = reservationService.getReservationsByTeacherId(teacherId);
 
         return ResponseEntity.ok().body(reservations);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReservationResponseDTO>> getReservationsByStudentId(@RequestParam Long studentId) {
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<ReservationResponseDTO>> getReservationsByStudentId(@PathVariable Long studentId) {
 
         List<ReservationResponseDTO> reservations = reservationService.getReservationsByStudentId(studentId);
 
         return ResponseEntity.ok().body(reservations);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReservationResponseDTO>> getReservationByStudentIdAndTeacherId(@RequestParam Long studentId, @RequestParam Long teacherId) {
+    @GetMapping("/student-teacher/{studentId}/{teacherId}")
+    public ResponseEntity<List<ReservationResponseDTO>> getReservationByStudentIdAndTeacherId(@PathVariable Long studentId, @PathVariable Long teacherId) {
 
         List<ReservationResponseDTO> reservations = reservationService.getReservationsByStudentIdAndTeacherId(studentId, teacherId);
 

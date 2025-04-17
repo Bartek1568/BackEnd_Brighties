@@ -35,7 +35,7 @@ public class AvailabilitySlotService {
 
     public AvailabilitySlotResponseDTO createAvailabilitySlot( AvailabilitySlotRequestDTO requestDTO) {
 
-        Long teacherId = Long.valueOf(requestDTO.getTeacherId());
+        Long teacherId = requestDTO.getTeacherId();
         if (!teacherGrpcClient.checkTeacherExists(teacherId)) {
             throw new IllegalArgumentException("Teacher with ID " + teacherId + " does not exist");
         }

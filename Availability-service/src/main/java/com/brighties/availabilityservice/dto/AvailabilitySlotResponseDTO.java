@@ -69,7 +69,7 @@ public class AvailabilitySlotResponseDTO {
         this.endTime = endTime;
     }
 
-    public boolean isAvailable() {
+    public boolean getIsAvailable() {
         return available;
     }
 

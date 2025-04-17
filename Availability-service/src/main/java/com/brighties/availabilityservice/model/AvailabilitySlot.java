@@ -14,7 +14,7 @@ import java.time.LocalTime;
 public class AvailabilitySlot {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long teacherId;
@@ -28,7 +28,7 @@ public class AvailabilitySlot {
 
     private LocalTime endTime;
 
-    private boolean isAvailable = false;
+    private boolean isAvailable;
 
 
     public DayOfWeek getDayOfWeek() {

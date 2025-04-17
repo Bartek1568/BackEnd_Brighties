@@ -1,40 +1,23 @@
-package com.brighties.availabilityservice.dto;
+package com.brighties.reservationservice.event;
 
-import jakarta.validation.constraints.NotBlank;
-
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class AvailabilitySlotRequestDTO {
-
+public class SlotReservedEvent {
     private Long teacherId;
-
     private LocalDate date;
-
-    private DayOfWeek dayOfWeek;
-
     private LocalTime startTime;
-
     private LocalTime endTime;
 
-    private boolean isAvailable;
+    public SlotReservedEvent() {
 
-    public void setAvailable(boolean available) {
-        this.isAvailable = available;
     }
 
-    public boolean getAvailable() {
-        return isAvailable;
-    }
-
-
-    public Long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Long teacherId) {
+    public SlotReservedEvent(Long teacherId, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.teacherId = teacherId;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public LocalDate getDate() {
@@ -45,12 +28,12 @@ public class AvailabilitySlotRequestDTO {
         this.date = date;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
     public LocalTime getStartTime() {

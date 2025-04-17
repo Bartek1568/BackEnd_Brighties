@@ -9,10 +9,9 @@ import com.brighties.reservationservice.grpc.StudentGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
 import com.brighties.reservationservice.model.Reservation;
 import com.brighties.reservationservice.repository.ReservationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,6 +54,7 @@ public class ReservationService {
                 collect(Collectors.toList());
     }
 
+    @Transactional
     public ReservationResponseDTO createReservation(ReservationRequestDTO reservationRequestDTO){
         checkIfStudentAndTeacherExists(reservationRequestDTO);
 
@@ -68,9 +68,9 @@ public class ReservationService {
     private void publishReservationEvents(Reservation reservation) {
         SlotReservedEvent slotEvent = new SlotReservedEvent(
                 reservation.getTeacherId(),
-                reservation.getDate().toString(),
-                reservation.getStartTime().toString(),
-                reservation.getEndTime().toString()
+                reservation.getDate(),
+                reservation.getStartTime(),
+                reservation.getEndTime()
         );
         eventPublisher.sendSlotReservedEvent(slotEvent);
 
@@ -78,9 +78,9 @@ public class ReservationService {
                 reservation.getId(),
                 reservation.getTeacherId(),
                 reservation.getStudentId(),
-                reservation.getDate().toString(),
-                reservation.getStartTime().toString(),
-                reservation.getEndTime().toString()
+                reservation.getDate(),
+                reservation.getStartTime(),
+                reservation.getEndTime()
         );
         eventPublisher.sendReservationCreatedEvent(createdEvent);
     }
@@ -94,15 +94,25 @@ public class ReservationService {
         }
 
         boolean isAvailable = availabilityGrpcClient.checkSlotAvailable(
-                Long.valueOf(reservationRequestDTO.getReservationId()),
+                reservationRequestDTO.getTeacherId(),
                 reservationRequestDTO.getDate(),
+                reservationRequestDTO.getDayOfWeek(),
                 reservationRequestDTO.getStartTime(),
                 reservationRequestDTO.getEndTime()
         );
 
         if (!isAvailable) {
+            System.out.println("Received checkSlotAvailability request:");
+            System.out.println("Teacher ID: " + reservationRequestDTO.getTeacherId());
+            System.out.println("Date: " + reservationRequestDTO.getDate());
+            System.out.println("Day of Week: " + reservationRequestDTO.getDayOfWeek());
+            System.out.println("Start Time: " + reservationRequestDTO.getStartTime());
+            System.out.println("End Time: " + reservationRequestDTO.getEndTime());
+
             throw new IllegalArgumentException("Selected slot is not available");
+
         }
+
     }
 
     public void deleteReservation(Long reservationId){

@@ -2,11 +2,11 @@ package com.brighties.reservationservice.kafka;
 
 import com.brighties.reservationservice.event.ReservationCreatedEvent;
 import com.brighties.reservationservice.event.SlotReservedEvent;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ser.std.StringSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Configuration
 public class KafkaProducerConfig {
+
     @Bean
     public ProducerFactory<String, SlotReservedEvent> producerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -43,6 +44,4 @@ public class KafkaProducerConfig {
     public KafkaTemplate<String, ReservationCreatedEvent> reservationCreatedEventKafkaTemplate() {
         return new KafkaTemplate<>(reservationCreatedEventProducerFactory());
     }
-
 }
-
