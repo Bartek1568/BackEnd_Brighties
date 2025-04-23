@@ -38,6 +38,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<Map<String,String>> handlePhoneNumberAlreadyExistsException(
+            PhoneNumberAlreadyExistsException ex){
+        log.warn("Phone number already exists {}", ex.getMessage());
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Phone number already exists");
+        return ResponseEntity.badRequest().body(errors);
+    }
+
     @ExceptionHandler(TeacherNotFoundException.class)
     public ResponseEntity<Map<String,String>> handleTeacherNotFoundException(
             TeacherNotFoundException ex){
