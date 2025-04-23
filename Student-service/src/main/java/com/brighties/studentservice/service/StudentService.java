@@ -2,13 +2,15 @@ package com.brighties.studentservice.service;
 
 import com.brighties.studentservice.dto.StudentRequestDTO;
 import com.brighties.studentservice.dto.StudentResponseDTO;
+import com.brighties.studentservice.exception.EmailAlreadyExistsException;
+import com.brighties.studentservice.exception.PhoneNumberExistsException;
+import com.brighties.studentservice.exception.StudentNotFoundException;
 import com.brighties.studentservice.mapper.StudentMapper;
 import com.brighties.studentservice.model.Student;
 import com.brighties.studentservice.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,12 +30,19 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    public StudentResponseDTO getStudentById(Long id) {
-        Optional<Student> student = studentRepository.findById(id);
-        return StudentMapper.toDTO(student.get());
+    public StudentResponseDTO getStudentById(Long id) throws StudentNotFoundException {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + id));
+        return StudentMapper.toDTO(student);
     }
 
     public StudentResponseDTO createStudent(StudentRequestDTO studentRequestDTO) {
+
+        if (studentRepository.existsByEmail(studentRequestDTO.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists");
+        } else if(studentRepository.existsByPhoneNumber(studentRequestDTO.getPhoneNumber())) {
+            throw new PhoneNumberExistsException("Phone number already exists");
+        }
         Student newStudent = studentRepository.
                 save(StudentMapper.toModel(studentRequestDTO));
 
@@ -41,24 +50,35 @@ public class StudentService {
     }
 
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO studentRequestDTO) {
-        Optional<Student> student = studentRepository.findById(id);
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("student not found with id: " + id));
 
-        student.get().setName(studentRequestDTO.getName());
-        student.get().setSurname(studentRequestDTO.getSurname());
-        student.get().setAge(studentRequestDTO.getAge());
-        student.get().setEmail(studentRequestDTO.getEmail());
-        student.get().setPhoneNumber(studentRequestDTO.getPhoneNumber());
-        student.get().setGoal(studentRequestDTO.getGoal());
-        student.get().setCourse(studentRequestDTO.getCourse());
-        student.get().setGrade(studentRequestDTO.getGrade());
+        student.setName(studentRequestDTO.getName());
+        student.setSurname(studentRequestDTO.getSurname());
+        student.setAge(studentRequestDTO.getAge());
+        if (studentRepository.existsByEmail(studentRequestDTO.getEmail())) {
+            throw new EmailAlreadyExistsException("Email already exists");
+        }
+        student.setEmail(studentRequestDTO.getEmail());
+        if (studentRepository.existsByPhoneNumber(studentRequestDTO.getPhoneNumber())){
+            throw new PhoneNumberExistsException("Phone number already exists");
+        }
+        student.setPhoneNumber(studentRequestDTO.getPhoneNumber());
+        student.setGoal(studentRequestDTO.getGoal());
+        student.setCourse(studentRequestDTO.getCourse());
+        student.setGrade(studentRequestDTO.getGrade());
+        student.setSchoolType(studentRequestDTO.getSchoolType());
 
-        Student updatedStudent = studentRepository.save(student.get());
+        Student updatedStudent = studentRepository.save(student);
         return StudentMapper.toDTO(updatedStudent);
-
-
     }
 
-    public void deleteStudent(Long id) {
+
+    public void deleteStudent(Long id) throws StudentNotFoundException {
+
+        if (studentRepository.existsById(id)) {
+            throw new StudentNotFoundException("Student not found with id: " + id);
+        }
         studentRepository.deleteById(id);
     }
 }
