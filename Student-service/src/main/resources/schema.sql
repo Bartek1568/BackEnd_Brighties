@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS student (
     phone_number INTEGER,
     goal VARCHAR(255),
     course VARCHAR(255),
-    grade INTEGER
+    grade INTEGER,
+    school_type VARCHAR(255)
 
 );

@@ -26,7 +26,7 @@ public class StudentService {
         List<Student> students =  studentRepository.findAll();
 
         return students.stream().
-                map(student ->StudentMapper.toDTO(student))
+                map(StudentMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -74,9 +74,9 @@ public class StudentService {
     }
 
 
-    public void deleteStudent(Long id) throws StudentNotFoundException {
+    public void deleteStudent(Long id) {
 
-        if (studentRepository.existsById(id)) {
+        if (!studentRepository.existsById(id)) {
             throw new StudentNotFoundException("Student not found with id: " + id);
         }
         studentRepository.deleteById(id);
