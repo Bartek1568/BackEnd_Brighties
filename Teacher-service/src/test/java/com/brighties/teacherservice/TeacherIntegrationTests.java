@@ -107,7 +107,7 @@ public class TeacherIntegrationTests {
 
         // Sprawdzenie, czy nauczyciel został usunięty
         mockMvc.perform(get("/teachers/{id}", createdTeacherId))
-                .andExpect(status().isNotFound()); // Oczekujemy 404, bo nauczyciel nie istnieje
+                .andExpect(status().isNotFound());
     }
 
 
