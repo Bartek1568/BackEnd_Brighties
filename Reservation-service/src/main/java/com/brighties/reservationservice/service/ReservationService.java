@@ -54,7 +54,7 @@ public class ReservationService {
                 collect(Collectors.toList());
     }
 
-    @Transactional
+
     public ReservationResponseDTO createReservation(ReservationRequestDTO reservationRequestDTO){
         checkIfStudentAndTeacherExists(reservationRequestDTO);
 

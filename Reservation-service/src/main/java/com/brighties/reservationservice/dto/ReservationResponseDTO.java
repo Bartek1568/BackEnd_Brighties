@@ -12,7 +12,9 @@ public class ReservationResponseDTO {
 
 
 
-    private Long reservationId;
+    private Long id;
+
+    private Long availabilityId;
 
     private LocalDate date;
 
@@ -24,7 +26,13 @@ public class ReservationResponseDTO {
 
     private String note;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getTeacherId() {
         return teacherId;
@@ -82,12 +90,12 @@ public class ReservationResponseDTO {
         this.note = note;
     }
 
-    public Long getReservationId() {
-        return reservationId;
+    public Long getAvailabilityId() {
+        return availabilityId;
     }
 
-    public void setReservationId(Long reservationId) {
-        this.reservationId = reservationId;
+    public void setAvailabilityId(Long availabilityId) {
+        this.availabilityId = availabilityId;
     }
 
 
