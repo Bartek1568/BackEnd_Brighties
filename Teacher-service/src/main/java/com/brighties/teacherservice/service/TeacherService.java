@@ -9,9 +9,7 @@ import com.brighties.teacherservice.model.Teacher;
 import com.brighties.teacherservice.repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,12 +24,13 @@ public class TeacherService {
          List<Teacher> teachers = teacherRepository.findAll();
 
          return teachers.stream().
-                 map(teacher -> TeacherMapper.toDTO(teacher)).collect(Collectors.toList());
+                 map(TeacherMapper::toDTO).collect(Collectors.toList());
     }
 
     public TeacherResponseDTO getTeacherById(long id) throws TeacherNotFoundException {
-        Optional<Teacher> teacher = teacherRepository.findById(id);
-        return TeacherMapper.toDTO(teacher.get());
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new TeacherNotFoundException("Teacher not found with id: " + id));
+        return TeacherMapper.toDTO(teacher);
     }
 
     public TeacherResponseDTO createTeacher(TeacherRequestDTO teacherRequestDTO){
@@ -46,7 +45,7 @@ public class TeacherService {
         return TeacherMapper.toDTO(newTeacher);
     }
 
-    public TeacherResponseDTO updateTeacher(Long id, TeacherRequestDTO teacherRequestDTO){
+    public TeacherResponseDTO updateTeacher(Long id, TeacherRequestDTO teacherRequestDTO) throws TeacherNotFoundException {
         Teacher teacher = teacherRepository.findById(id).orElseThrow( () -> new TeacherNotFoundException("teacher not found with id:" + id));
 
         teacher.setName(teacherRequestDTO.getName());
