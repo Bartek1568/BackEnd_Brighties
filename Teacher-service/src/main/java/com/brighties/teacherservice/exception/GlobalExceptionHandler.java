@@ -3,6 +3,7 @@ package com.brighties.teacherservice.exception;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,7 +43,7 @@ public class GlobalExceptionHandler {
             TeacherNotFoundException ex){
         log.warn("Teacher not found {}", ex.getMessage());
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Teacher not found");
-        return ResponseEntity.badRequest().body(errors);
+        errors.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors); 
     }
 }
