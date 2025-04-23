@@ -2,7 +2,12 @@ package com.brighties.studentservice.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class StudentRequestDTO {
 
     @NotBlank(message = "Name is required")
@@ -11,14 +16,14 @@ public class StudentRequestDTO {
     @NotBlank(message = "Surname is required")
     private String surname;
 
-    @NotBlank(message = "Age is required")
+    @NotNull(message = "Age is required")
     private Integer age;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotBlank(message = "Phone number is required")
+    @NotNull(message = "Phone number is required")
     private Integer phoneNumber;
 
     @NotBlank(message = "Goal is required")
@@ -27,70 +32,10 @@ public class StudentRequestDTO {
     @NotBlank(message = "Course is required")
     private String course;
 
-    @NotBlank(message = "Grade is required")
+    @NotNull(message = "Grade is required")
     private Integer grade;
 
-    public String getName() {
-        return name;
-    }
+    @NotBlank(message = "School type is required")
+    private String schoolType;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getGoal() {
-        return goal;
-    }
-
-    public void setGoal(String goal) {
-        this.goal = goal;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
 }

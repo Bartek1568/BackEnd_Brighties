@@ -17,6 +17,7 @@ public class StudentMapper {
         studentDTO.setCourse(student.getCourse());
         studentDTO.setGoal(student.getGoal());
         studentDTO.setGrade(student.getGrade());
+        studentDTO.setSchoolType(student.getSchoolType());
 
         return studentDTO;
     }
@@ -32,6 +33,7 @@ public class StudentMapper {
         student.setCourse(studentDTO.getCourse());
         student.setGoal(studentDTO.getGoal());
         student.setGrade(studentDTO.getGrade());
+        student.setSchoolType(studentDTO.getSchoolType());
         return student;
     }
 }
