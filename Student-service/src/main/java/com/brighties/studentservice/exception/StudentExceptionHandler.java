@@ -14,10 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class StudentExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(
-            GlobalExceptionHandler.class);
+            StudentExceptionHandler.class);
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleMethodArgumentNotValidException(
