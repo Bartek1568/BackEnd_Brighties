@@ -4,6 +4,9 @@ import com.brighties.reservationservice.dto.ReservationRequestDTO;
 import com.brighties.reservationservice.dto.ReservationResponseDTO;
 import com.brighties.reservationservice.event.ReservationCreatedEvent;
 import com.brighties.reservationservice.event.SlotReservedEvent;
+import com.brighties.reservationservice.exception.AvailabilitySlotIsAlreadyReservedException;
+import com.brighties.reservationservice.exception.AvailabilitySlotNotFoundException;
+import com.brighties.reservationservice.exception.StudentNotFoundException;
 import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
 import com.brighties.reservationservice.grpc.StudentGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
@@ -36,21 +39,21 @@ public class ReservationService {
     public List<ReservationResponseDTO> getReservationsByTeacherId(Long teacherId){
         List<Reservation> reservations = reservationRepository.findByTeacherId(teacherId);
 
-        return  reservations.stream().map(reservation -> ReservationMapper.toDTO(reservation)).
+        return  reservations.stream().map(ReservationMapper::toDTO).
                 collect(Collectors.toList());
     }
 
     public List<ReservationResponseDTO> getReservationsByStudentId(Long studentId){
         List<Reservation> reservations = reservationRepository.findByStudentId(studentId);
 
-        return  reservations.stream().map(reservation -> ReservationMapper.toDTO(reservation)).
+        return  reservations.stream().map(ReservationMapper::toDTO).
                 collect(Collectors.toList());
     }
 
     public List<ReservationResponseDTO> getReservationsByStudentIdAndTeacherId(Long studentId, Long teacherId){
         List<Reservation> reservations = reservationRepository.findByStudentIdAndTeacherId(studentId, teacherId);
 
-        return  reservations.stream().map(reservation -> ReservationMapper.toDTO(reservation)).
+        return  reservations.stream().map(ReservationMapper::toDTO).
                 collect(Collectors.toList());
     }
 
@@ -67,49 +70,35 @@ public class ReservationService {
 
     private void publishReservationEvents(Reservation reservation) {
         SlotReservedEvent slotEvent = new SlotReservedEvent(
-                reservation.getTeacherId(),
-                reservation.getDate(),
-                reservation.getStartTime(),
-                reservation.getEndTime()
+                reservation.getTeacherId()
         );
         eventPublisher.sendSlotReservedEvent(slotEvent);
 
         ReservationCreatedEvent createdEvent = new ReservationCreatedEvent(
                 reservation.getId(),
                 reservation.getTeacherId(),
-                reservation.getStudentId(),
-                reservation.getDate(),
-                reservation.getStartTime(),
-                reservation.getEndTime()
+                reservation.getStudentId()
+
         );
         eventPublisher.sendReservationCreatedEvent(createdEvent);
     }
 
 
+    //TODO  Add: if teacher Exists, if availabilitySlot exists
     private void checkIfStudentAndTeacherExists(ReservationRequestDTO reservationRequestDTO){
-        Long studentId = Long.valueOf(reservationRequestDTO.getStudentId());
+        Long studentId = reservationRequestDTO.getStudentId();
 
         if (!studentGrpcClient.checkStudentExists(studentId)) {
-            throw new IllegalArgumentException("Student with ID " + studentId + " does not exist");
+            throw new StudentNotFoundException("Student with ID " + studentId + " does not exist");
         }
 
         boolean isAvailable = availabilityGrpcClient.checkSlotAvailable(
                 reservationRequestDTO.getTeacherId(),
-                reservationRequestDTO.getDate(),
-                reservationRequestDTO.getDayOfWeek(),
-                reservationRequestDTO.getStartTime(),
-                reservationRequestDTO.getEndTime()
+                reservationRequestDTO.getAvailabilityId()
         );
 
         if (!isAvailable) {
-            System.out.println("Received checkSlotAvailability request:");
-            System.out.println("Teacher ID: " + reservationRequestDTO.getTeacherId());
-            System.out.println("Date: " + reservationRequestDTO.getDate());
-            System.out.println("Day of Week: " + reservationRequestDTO.getDayOfWeek());
-            System.out.println("Start Time: " + reservationRequestDTO.getStartTime());
-            System.out.println("End Time: " + reservationRequestDTO.getEndTime());
-
-            throw new IllegalArgumentException("Selected slot is not available");
+            throw new AvailabilitySlotIsAlreadyReservedException("Selected slot is not available");
 
         }
 
@@ -124,9 +113,7 @@ public class ReservationService {
 
         reservation.get().setTeacherId(reservationRequestDTO.getTeacherId());
         reservation.get().setStudentId(reservationRequestDTO.getStudentId());
-        reservation.get().setDate(reservationRequestDTO.getDate());
-        reservation.get().setStartTime(reservationRequestDTO.getStartTime());
-        reservation.get().setEndTime(reservationRequestDTO.getEndTime());
+        reservation.get().setAvailabilitySlotId(reservationRequestDTO.getAvailabilityId());
         reservation.get().setStatus(reservationRequestDTO.getStatus());
         reservation.get().setNote(reservationRequestDTO.getNote());
 
