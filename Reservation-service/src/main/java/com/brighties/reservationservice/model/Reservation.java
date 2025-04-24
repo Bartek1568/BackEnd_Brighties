@@ -30,12 +30,6 @@ public class Reservation {
 
     private Long availabilitySlotId;
 
-    private LocalDate date;
-
-    private LocalTime startTime;
-
-    private LocalTime endTime;
-
     private String status;
 
     private String note;

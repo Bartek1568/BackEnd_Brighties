@@ -11,12 +11,9 @@ public class ReservationMapper {
         reservationDTO.setId(reservation.getId());
         reservationDTO.setTeacherId(reservation.getTeacherId());
         reservationDTO.setStudentId(reservation.getStudentId());
-        reservationDTO.setDate(reservation.getDate());
-        reservationDTO.setStartTime(reservation.getStartTime());
-        reservationDTO.setEndTime(reservation.getEndTime());
+        reservationDTO.setAvailabilityId(reservation.getAvailabilitySlotId());
         reservationDTO.setStatus(reservation.getStatus());
         reservationDTO.setNote(reservation.getNote());
-        reservationDTO.setAvailabilityId(reservation.getAvailabilitySlotId());
 
         return reservationDTO;
 
@@ -24,15 +21,11 @@ public class ReservationMapper {
 
     public static Reservation toModel(ReservationRequestDTO reservationDTO) {
         Reservation reservation = new Reservation();
-        reservation.setId(reservationDTO.getAvailabilityId());
         reservation.setTeacherId(reservationDTO.getTeacherId());
         reservation.setStudentId(reservationDTO.getStudentId());
-        reservation.setDate(reservationDTO.getDate());
-        reservation.setStartTime(reservationDTO.getStartTime());
-        reservation.setEndTime(reservationDTO.getEndTime());
+        reservation.setAvailabilitySlotId(reservationDTO.getAvailabilityId());
         reservation.setStatus(reservationDTO.getStatus());
         reservation.setNote(reservationDTO.getNote());
-        reservation.setAvailabilitySlotId(reservationDTO.getAvailabilityId());
 
         return reservation;
     }
