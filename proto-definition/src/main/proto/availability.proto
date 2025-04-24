@@ -11,10 +11,7 @@ service AvailabilityService {
 
 message CheckSlotRequest {
   int64 teacher_id = 1;
-  string date = 2;
-  string day_of_week = 3;
-  string start_time = 4;
-  string end_time = 5;
+  int64 availability_id = 2;
 }
 
 message SlotAvailabilityResponse {

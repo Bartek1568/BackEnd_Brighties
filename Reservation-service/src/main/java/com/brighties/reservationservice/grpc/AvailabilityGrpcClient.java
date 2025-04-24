@@ -25,13 +25,10 @@ public class AvailabilityGrpcClient {
         this.availabilityStub = AvailabilityServiceGrpc.newBlockingStub(channel);
     }
 
-    public boolean checkSlotAvailable(Long teacherId, LocalDate date, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+    public boolean checkSlotAvailable(Long teacherId,Long availabilityId) {
         CheckSlotRequest request = CheckSlotRequest.newBuilder()
                 .setTeacherId(teacherId)
-                .setDate(String.valueOf(date))
-                .setDayOfWeek(String.valueOf(dayOfWeek))
-                .setStartTime(String.valueOf(startTime))
-                .setEndTime(String.valueOf(endTime))
+                .setAvailabilityId(availabilityId)
                 .build();
 
         SlotAvailabilityResponse response = availabilityStub.checkSlotAvailability(request);
