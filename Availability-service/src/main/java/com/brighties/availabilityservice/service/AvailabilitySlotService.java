@@ -2,6 +2,7 @@ package com.brighties.availabilityservice.service;
 
 import com.brighties.availabilityservice.dto.AvailabilitySlotRequestDTO;
 import com.brighties.availabilityservice.dto.AvailabilitySlotResponseDTO;
+import com.brighties.availabilityservice.exception.TeacherNotFoundException;
 import com.brighties.availabilityservice.grpc.TeacherGrpcClient;
 import com.brighties.availabilityservice.mapper.AvailabilitySlotMapper;
 import com.brighties.availabilityservice.model.AvailabilitySlot;
@@ -35,7 +36,7 @@ public class AvailabilitySlotService {
 
         Long teacherId = requestDTO.getTeacherId();
         if (!teacherGrpcClient.checkTeacherExists(teacherId)) {
-            throw new IllegalArgumentException("Teacher with ID " + teacherId + " does not exist");
+            throw new TeacherNotFoundException("Teacher with ID " + teacherId + " does not exist");
         }
         AvailabilitySlot newAvailabilitySlot = repository.save(AvailabilitySlotMapper.toModel(requestDTO));
 
