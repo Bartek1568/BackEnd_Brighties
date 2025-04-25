@@ -25,16 +25,6 @@ public class ReservationExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    @ExceptionHandler(AvailabilitySlotNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleAvailabilitySlotNotFoundException(
-            AvailabilitySlotNotFoundException ex) {
-
-        log.warn("Availability slot not found: {}", ex.getMessage());
-        Map<String, String> errors = new HashMap<>();
-        errors.put("message", "Availability slot not found.");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errors);
-    }
-
     @ExceptionHandler(StudentNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleStudentNotFoundException(
             StudentNotFoundException ex) {
