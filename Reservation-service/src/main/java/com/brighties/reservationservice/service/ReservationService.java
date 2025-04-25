@@ -5,14 +5,14 @@ import com.brighties.reservationservice.dto.ReservationResponseDTO;
 import com.brighties.reservationservice.event.ReservationCreatedEvent;
 import com.brighties.reservationservice.event.SlotReservedEvent;
 import com.brighties.reservationservice.exception.AvailabilitySlotIsAlreadyReservedException;
-import com.brighties.reservationservice.exception.AvailabilitySlotNotFoundException;
 import com.brighties.reservationservice.exception.StudentNotFoundException;
+import com.brighties.reservationservice.exception.TeacherNotFoundException;
 import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
 import com.brighties.reservationservice.grpc.StudentGrpcClient;
+import com.brighties.reservationservice.grpc.TeacherGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
 import com.brighties.reservationservice.model.Reservation;
 import com.brighties.reservationservice.repository.ReservationRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,13 +25,16 @@ public class ReservationService {
 
     private ReservationRepository reservationRepository;
     private final StudentGrpcClient studentGrpcClient;
+    private final TeacherGrpcClient teacherGrpcClient;
     private final AvailabilityGrpcClient availabilityGrpcClient;
     private final ReservationEventPublisher eventPublisher;
 
     public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient,
+                              TeacherGrpcClient teacherGrpcClient,
                               AvailabilityGrpcClient availabilityGrpcClient, ReservationEventPublisher eventPublisher) {
         this.reservationRepository = reservationRepository;
         this.studentGrpcClient = studentGrpcClient;
+        this.teacherGrpcClient = teacherGrpcClient;
         this.availabilityGrpcClient = availabilityGrpcClient;
         this.eventPublisher = eventPublisher;
     }
@@ -59,7 +62,9 @@ public class ReservationService {
 
 
     public ReservationResponseDTO createReservation(ReservationRequestDTO reservationRequestDTO){
+
         checkIfStudentAndTeacherExists(reservationRequestDTO);
+        checkIfAvailabilitySlotIsAlreadyReserved(reservationRequestDTO);
 
         Reservation newReservation = reservationRepository.save(ReservationMapper.toModel(reservationRequestDTO));
 
@@ -83,8 +88,6 @@ public class ReservationService {
         eventPublisher.sendReservationCreatedEvent(createdEvent);
     }
 
-
-    //TODO  Add: if teacher Exists, if availabilitySlot exists
     private void checkIfStudentAndTeacherExists(ReservationRequestDTO reservationRequestDTO){
         Long studentId = reservationRequestDTO.getStudentId();
 
@@ -92,8 +95,15 @@ public class ReservationService {
             throw new StudentNotFoundException("Student with ID " + studentId + " does not exist");
         }
 
+        if (!teacherGrpcClient.checkTeacherExists(reservationRequestDTO.getTeacherId())) {
+            throw new TeacherNotFoundException("Teacher with ID " + reservationRequestDTO.getTeacherId() + " does not exist");
+        }
+
+
+
+    }
+    private void checkIfAvailabilitySlotIsAlreadyReserved(ReservationRequestDTO reservationRequestDTO){
         boolean isAvailable = availabilityGrpcClient.checkSlotAvailable(
-                reservationRequestDTO.getTeacherId(),
                 reservationRequestDTO.getAvailabilityId()
         );
 
@@ -101,7 +111,6 @@ public class ReservationService {
             throw new AvailabilitySlotIsAlreadyReservedException("Selected slot is not available");
 
         }
-
     }
 
     public void deleteReservation(Long reservationId){
