@@ -120,6 +120,9 @@ public class ReservationService {
     public ReservationResponseDTO updateReservation(Long reservationId, ReservationRequestDTO reservationRequestDTO){
         Optional<Reservation> reservation = reservationRepository.findById(reservationId);
 
+        checkIfAvailabilitySlotIsAlreadyReserved(reservationRequestDTO);
+        checkIfStudentAndTeacherExists(reservationRequestDTO);
+
         reservation.get().setTeacherId(reservationRequestDTO.getTeacherId());
         reservation.get().setStudentId(reservationRequestDTO.getStudentId());
         reservation.get().setAvailabilitySlotId(reservationRequestDTO.getAvailabilityId());
