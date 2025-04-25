@@ -16,14 +16,9 @@ public interface AvailabilitySlotRepository extends JpaRepository<AvailabilitySl
 
 
     @Query("SELECT COUNT(a) > 0 FROM AvailabilitySlot a " +
-            "WHERE a.teacherId = :teacherId " +
-            "AND a.date = :date " +
-            "AND a.startTime = :startTime " +
-            "AND a.endTime = :endTime " +
+            "WHERE a.id = :availabilityId " +
             "AND a.isAvailable = true")
-    boolean isSlotAvailable(@Param("teacherId") Long teacherId,
-                            @Param("date") LocalDate date,
-                            @Param("startTime") LocalTime startTime,
-                            @Param("endTime") LocalTime endTime);
+    boolean isSlotAvailable(@Param("availabilityId") Long availabilityId);
+
 
 }

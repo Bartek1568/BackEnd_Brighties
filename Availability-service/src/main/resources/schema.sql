@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS availability_slot (
     day_of_week VARCHAR(20),
     start_time TIME,
     end_time TIME,
-    is_available BOOLEAN DEFAULT FALSE
+    is_available BOOLEAN DEFAULT TRUE,
+    is_reoccurring_weekly BOOLEAN DEFAULT FALSE
+
 
 );

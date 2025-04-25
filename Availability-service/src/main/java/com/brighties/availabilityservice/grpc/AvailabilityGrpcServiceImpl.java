@@ -8,10 +8,6 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 @GrpcService
 public class AvailabilityGrpcServiceImpl extends AvailabilityServiceGrpc.AvailabilityServiceImplBase {
 
@@ -24,12 +20,9 @@ public class AvailabilityGrpcServiceImpl extends AvailabilityServiceGrpc.Availab
 
     @Override
     public void checkSlotAvailability(CheckSlotRequest request, StreamObserver<SlotAvailabilityResponse> responseObserver) {
-        Long teacherId = request.getTeacherId();
-        LocalDate date = LocalDate.parse(request.getDate());
-        LocalTime startTime = LocalTime.parse(request.getStartTime(), DateTimeFormatter.ISO_TIME);
-        LocalTime endTime = LocalTime.parse(request.getEndTime(), DateTimeFormatter.ISO_TIME);
+        Long availabilityId = request.getAvailabilityId();
 
-        boolean isAvailable = repository.isSlotAvailable(teacherId, date, startTime, endTime);
+        boolean isAvailable = repository.isSlotAvailable(availabilityId);
 
         SlotAvailabilityResponse response = SlotAvailabilityResponse.newBuilder()
                 .setAvailable(isAvailable)

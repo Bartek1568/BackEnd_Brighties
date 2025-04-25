@@ -6,9 +6,6 @@ import com.brighties.reservationservice.event.SlotReservedEvent;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Service
 public class SlotReservedListener {
 
@@ -20,16 +17,12 @@ public class SlotReservedListener {
 
     @KafkaListener(topics = "slot-reserved-topic", groupId = "availability-consumer")
     public void handleSlotReservedEvent(SlotReservedEvent event) {
-        LocalDate date = event.getDate();
-        LocalTime start = event.getStartTime();
-        LocalTime end = event.getEndTime();
+        Long availabilityId = event.getAvailabilityId();
 
-        AvailabilitySlot slot = repository.findByTeacherIdAndDateAndStartTimeAndEndTime(
-                event.getTeacherId(), date, start, end
-        );
+        AvailabilitySlot slot = repository.findById(availabilityId).orElse(null);
 
         if (slot != null) {
-            slot.setIsAvailable(false);
+            slot.setAvailable(false);
             repository.save(slot);
         }
     }

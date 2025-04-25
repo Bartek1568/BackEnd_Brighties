@@ -25,9 +25,10 @@ public class AvailabilityGrpcClient {
         this.availabilityStub = AvailabilityServiceGrpc.newBlockingStub(channel);
     }
 
-    public boolean checkSlotAvailable(Long teacherId,Long availabilityId) {
+    public boolean checkSlotAvailable(Long availabilityId) {
+
+
         CheckSlotRequest request = CheckSlotRequest.newBuilder()
-                .setTeacherId(teacherId)
                 .setAvailabilityId(availabilityId)
                 .build();
 

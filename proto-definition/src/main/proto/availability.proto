@@ -10,8 +10,7 @@ service AvailabilityService {
 }
 
 message CheckSlotRequest {
-  int64 teacher_id = 1;
-  int64 availability_id = 2;
+  int64 availability_id = 1;
 }
 
 message SlotAvailabilityResponse {

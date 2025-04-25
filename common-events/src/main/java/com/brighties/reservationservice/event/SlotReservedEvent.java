@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SlotReservedEvent {
-    private Long teacherId;
+    private Long availabilityId;
 
 
 }
