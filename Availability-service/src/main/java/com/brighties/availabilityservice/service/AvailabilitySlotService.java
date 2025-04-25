@@ -8,9 +8,7 @@ import com.brighties.availabilityservice.model.AvailabilitySlot;
 import com.brighties.availabilityservice.repository.AvailabilitySlotRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,7 +27,7 @@ public class AvailabilitySlotService {
     public List<AvailabilitySlotResponseDTO> getAvailabilityByTeacherAndDate(Long teacherId, LocalDate date) {
         List<AvailabilitySlot> slots = repository.findByTeacherIdAndDate(teacherId, date);
 
-        return slots.stream().map(availabilitySlot -> AvailabilitySlotMapper.toDTO(availabilitySlot)).
+        return slots.stream().map(AvailabilitySlotMapper::toDTO).
                 collect(Collectors.toList());
     }
 
@@ -57,7 +55,8 @@ public class AvailabilitySlotService {
         availabilitySlot.get().setTeacherId(requestDTO.getTeacherId());
         availabilitySlot.get().setStartTime(requestDTO.getStartTime());
         availabilitySlot.get().setEndTime(requestDTO.getEndTime());
-        availabilitySlot.get().setIsAvailable(requestDTO.getAvailable());
+        availabilitySlot.get().setAvailable(requestDTO.isAvailable());
+        availabilitySlot.get().setReoccurringWeekly(requestDTO.isReoccurringWeekly());
 
         AvailabilitySlot savedAvailabilitySlot = repository.save(availabilitySlot.get());
 

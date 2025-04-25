@@ -18,8 +18,8 @@ public class AvailabilitySlotMapper {
         availabilitySlotDTO.setDayOfWeek(availabilitySlot.getDayOfWeek());
         availabilitySlotDTO.setStartTime(availabilitySlot.getStartTime());
         availabilitySlotDTO.setEndTime(availabilitySlot.getEndTime());
-        availabilitySlotDTO.setAvailable(availabilitySlot.getIsAvailable());
-
+        availabilitySlotDTO.setAvailable(availabilitySlot.isAvailable());
+        availabilitySlotDTO.setReoccurringWeekly(availabilitySlot.isReoccurringWeekly());
 
         return availabilitySlotDTO;
     }
@@ -32,8 +32,8 @@ public class AvailabilitySlotMapper {
         availabilitySlot.setStartTime(availabilitySlotDTO.getStartTime());
         availabilitySlot.setEndTime(availabilitySlotDTO.getEndTime());
         availabilitySlot.setDayOfWeek(availabilitySlotDTO.getDayOfWeek());
-        availabilitySlot.setIsAvailable(availabilitySlotDTO.getAvailable());
-
+        availabilitySlot.setAvailable(availabilitySlotDTO.isAvailable());
+        availabilitySlot.setReoccurringWeekly(availabilitySlotDTO.isReoccurringWeekly());
         return availabilitySlot;
 
 
