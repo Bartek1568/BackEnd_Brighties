@@ -75,7 +75,7 @@ public class ReservationService {
 
     private void publishReservationEvents(Reservation reservation) {
         SlotReservedEvent slotEvent = new SlotReservedEvent(
-                reservation.getTeacherId()
+                reservation.getAvailabilitySlotId()
         );
         eventPublisher.sendSlotReservedEvent(slotEvent);
 
