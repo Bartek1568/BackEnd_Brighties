@@ -1,6 +1,6 @@
 package com.brighties.emailsenderservice.service;
 
-import com.brighties.emailsenderservice.event.ReservationCreatedEvent;
+import com.brighties.reservationservice.event.ReservationCreatedEvent;
 import com.brighties.emailsenderservice.grpc.StudentGrpcClient;
 import com.brighties.emailsenderservice.grpc.TeacherGrpcClient;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,9 @@ public class EmailSenderService {
     public void processReservationCreatedEvent(ReservationCreatedEvent event) {
         StudentInfoResponse student = studentGrpcClient.getStudentInfo(event.getStudentId());
         TeacherInfoResponse teacher = teacherGrpcClient.getTeacherInfo(event.getTeacherId());
-
+        System.out.println("Student info: " + student);
+        System.out.println("Teacher info: " + teacher);
+        System.out.println("wiadomość doszla do emailsenderservice");
         if (!student.getExists()) {
             System.err.println("Student nie istnieje, ID: " + event.getStudentId());
             return;
@@ -39,8 +41,7 @@ public class EmailSenderService {
                     Cześć %s %s,
 
                     Twoja rezerwacja u nauczyciela %s %s została potwierdzona.
-                    Data: %s
-                    Godzina: %s - %s
+                  
 
                     Dane kontaktowe nauczyciela:
                     Email: %s
@@ -53,12 +54,11 @@ public class EmailSenderService {
                         student.getSurname(),
                         teacher.getName(),
                         teacher.getSurname(),
-                        event.getDate(),
-                        event.getStartTime(),
-                        event.getEndTime(),
                         teacher.getEmail(),
                         teacher.getPhone()
+
                 )
+
         );
 
         // Email do nauczyciela
@@ -69,8 +69,7 @@ public class EmailSenderService {
                     Cześć %s %s,
 
                     Uczeń %s %s zarezerwował u Ciebie lekcję.
-                    Data: %s
-                    Godzina: %s - %s
+              
 
                     Dane kontaktowe ucznia:
                     Email: %s
@@ -83,9 +82,6 @@ public class EmailSenderService {
                         teacher.getSurname(),
                         student.getName(),
                         student.getSurname(),
-                        event.getDate(),
-                        event.getStartTime(),
-                        event.getEndTime(),
                         student.getEmail(),
                         student.getPhone()
                 )
