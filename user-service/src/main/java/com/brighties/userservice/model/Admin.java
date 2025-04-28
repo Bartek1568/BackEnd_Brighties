@@ -3,8 +3,10 @@ package com.brighties.userservice.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.DiscriminatorValue;
+
 
 @Entity
-@Table(name = "admins")
+@DiscriminatorValue("ADMIN")
 public class Admin extends User {
 }
