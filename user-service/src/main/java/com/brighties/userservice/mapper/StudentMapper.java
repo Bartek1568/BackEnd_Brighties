@@ -2,39 +2,40 @@ package com.brighties.userservice.mapper;
 
 import com.brighties.userservice.dto.request.StudentRequestDTO;
 import com.brighties.userservice.dto.response.StudentResponseDTO;
-import com.brighties.userservice.model.Student;
+import com.brighties.userservice.model.StudentProfile;
 
 public class StudentMapper {
 
-    public static StudentResponseDTO toDTO(Student student) {
+    public static StudentResponseDTO toDTO(StudentProfile studentProfile) {
         StudentResponseDTO studentDTO = new StudentResponseDTO();
-        studentDTO.setId(student.getId());
-        studentDTO.setName(student.getName());
-        studentDTO.setSurname(student.getSurname());
-        studentDTO.setEmail(student.getEmail());
-        studentDTO.setPhoneNumber(student.getPhoneNumber());
-        studentDTO.setAge(student.getAge());
-        studentDTO.setCourse(student.getCourse());
-        studentDTO.setGoal(student.getGoal());
-        studentDTO.setGrade(student.getGrade());
-        studentDTO.setSchoolType(student.getSchoolType());
+        studentDTO.setId(studentProfile.getId());
+        studentDTO.setName(studentProfile.getName());
+        studentDTO.setSurname(studentProfile.getSurname());
+        studentDTO.setEmail(studentProfile.getEmail());
+        studentDTO.setPhoneNumber(studentProfile.getPhoneNumber());
+        studentDTO.setAge(studentProfile.getAge());
+        studentDTO.setCourse(studentProfile.getCourse());
+        studentDTO.setGoal(studentProfile.getGoal());
+        studentDTO.setGrade(studentProfile.getGrade());
+        studentDTO.setSchoolType(studentProfile.getSchoolType());
 
         return studentDTO;
     }
 
-    public static Student toModel(StudentRequestDTO studentDTO) {
-        Student student = new Student();
+    public static StudentProfile toModel(StudentRequestDTO studentDTO) {
+        StudentProfile studentProfile = new StudentProfile();
 
-        student.setName(studentDTO.getName());
-        student.setSurname(studentDTO.getSurname());
-        student.setEmail(studentDTO.getEmail());
-        student.setPassword(studentDTO.getPassword());
-        student.setPhoneNumber(studentDTO.getPhoneNumber());
-        student.setAge(studentDTO.getAge());
-        student.setCourse(studentDTO.getCourse());
-        student.setGoal(studentDTO.getGoal());
-        student.setGrade(studentDTO.getGrade());
-        student.setSchoolType(studentDTO.getSchoolType());
-        return student;
+        studentProfile.setName(studentDTO.getName());
+        studentProfile.setSurname(studentDTO.getSurname());
+        studentProfile.setEmail(studentDTO.getEmail());
+        studentProfile.setPassword(studentDTO.getPassword());
+        studentProfile.setPhoneNumber(studentDTO.getPhoneNumber());
+        studentProfile.setAge(studentDTO.getAge());
+        studentProfile.setCourse(studentDTO.getCourse());
+        studentProfile.setGoal(studentDTO.getGoal());
+        studentProfile.setGrade(studentDTO.getGrade());
+        studentProfile.setSchoolType(studentDTO.getSchoolType());
+        studentProfile.setRole(studentDTO.getRole());
+        return studentProfile;
     }
 }

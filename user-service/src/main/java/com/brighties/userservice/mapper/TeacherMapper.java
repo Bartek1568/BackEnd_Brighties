@@ -3,31 +3,34 @@ package com.brighties.userservice.mapper;
 
 import com.brighties.userservice.dto.request.TeacherRequestDTO;
 import com.brighties.userservice.dto.response.TeacherResponseDTO;
-import com.brighties.userservice.model.Teacher;
+import com.brighties.userservice.model.TeacherProfile;
 
 public class TeacherMapper {
 
-    public static TeacherResponseDTO toDTO(Teacher teacher) {
+    public static TeacherResponseDTO toDTO(TeacherProfile teacherProfile) {
         TeacherResponseDTO teacherDTO = new TeacherResponseDTO();
-        teacherDTO.setId(teacher.getId());
-        teacherDTO.setName(teacher.getName());
-        teacherDTO.setSurname(teacher.getSurname());
-        teacherDTO.setEmail(teacher.getEmail());
-        teacherDTO.setDescription(teacher.getDescription());
-        teacherDTO.setPhoneNumber(teacher.getPhoneNumber());
+        teacherDTO.setId(teacherProfile.getId());
+        teacherDTO.setName(teacherProfile.getName());
+        teacherDTO.setSurname(teacherProfile.getSurname());
+        teacherDTO.setEmail(teacherProfile.getEmail());
+        teacherDTO.setDescription(teacherProfile.getDescription());
+        teacherDTO.setPhoneNumber(teacherProfile.getPhoneNumber());
+        teacherDTO.setSpecializations(teacherProfile.getSpecializations());
         return teacherDTO;
 
     }
 
-    public static Teacher toModel(TeacherRequestDTO teacherDTO) {
-        Teacher teacher = new Teacher();
-        teacher.setName(teacherDTO.getName());
-        teacher.setSurname(teacherDTO.getSurname());
-        teacher.setEmail(teacherDTO.getEmail());
-        teacher.setPassword(teacherDTO.getPassword());
-        teacher.setDescription(teacherDTO.getDescription());
-        teacher.setPhoneNumber(teacherDTO.getPhoneNumber());
-        return teacher;
+    public static TeacherProfile toModel(TeacherRequestDTO teacherDTO) {
+        TeacherProfile teacherProfile = new TeacherProfile();
+        teacherProfile.setName(teacherDTO.getName());
+        teacherProfile.setSurname(teacherDTO.getSurname());
+        teacherProfile.setEmail(teacherDTO.getEmail());
+        teacherProfile.setPassword(teacherDTO.getPassword());
+        teacherProfile.setDescription(teacherDTO.getDescription());
+        teacherProfile.setPhoneNumber(teacherDTO.getPhoneNumber());
+        teacherProfile.setRole(teacherDTO.getRole());
+        teacherProfile.setSpecializations(teacherDTO.getSpecializations());
+        return teacherProfile;
     }
 
 
