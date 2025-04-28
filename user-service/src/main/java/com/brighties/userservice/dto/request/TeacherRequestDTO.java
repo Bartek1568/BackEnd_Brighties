@@ -1,6 +1,7 @@
 package com.brighties.userservice.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class TeacherRequestDTO extends UserRequestDTO {
     @NotBlank(message = "description is required")
     private String description;
 
-    @NotBlank(message = "Specializations are required")
+    @NotEmpty(message = "Specializations are required")
     private List<String> specializations;
 
 

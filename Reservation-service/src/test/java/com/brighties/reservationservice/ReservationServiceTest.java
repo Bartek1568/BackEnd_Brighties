@@ -6,8 +6,6 @@ import com.brighties.reservationservice.exception.AvailabilitySlotIsAlreadyReser
 import com.brighties.reservationservice.exception.StudentNotFoundException;
 import com.brighties.reservationservice.exception.TeacherNotFoundException;
 import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
-import com.brighties.reservationservice.grpc.StudentGrpcClient;
-import com.brighties.reservationservice.grpc.TeacherGrpcClient;
 import com.brighties.reservationservice.model.Reservation;
 import com.brighties.reservationservice.repository.ReservationRepository;
 import com.brighties.reservationservice.service.ReservationEventPublisher;

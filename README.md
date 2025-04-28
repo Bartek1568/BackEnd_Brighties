@@ -6,7 +6,7 @@ System o architekturze mikroserwisowej służący do zarządzania korepetycjami,
 
 ## 🧩 Mikroserwisy
 
-### 1. `teacher-service`
+### 1. `teacherProfile-service`
 Zarządza informacjami o nauczycielach.
 
 #### Funkcje:
@@ -21,7 +21,7 @@ Zarządza informacjami o nauczycielach.
 
 ---
 
-### 2. `student-service`
+### 2. `studentProfile-service`
 Zarządza uczniami i ich danymi.
 
 #### Funkcje:

@@ -2,8 +2,6 @@ package com.brighties.reservationservice;
 
 import com.brighties.reservationservice.dto.ReservationRequestDTO;
 import com.brighties.reservationservice.dto.ReservationResponseDTO;
-import com.brighties.reservationservice.grpc.StudentGrpcClient;
-import com.brighties.reservationservice.grpc.TeacherGrpcClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.mockito.*;

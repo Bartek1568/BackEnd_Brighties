@@ -7,7 +7,7 @@ import com.brighties.userservice.exception.PhoneNumberExistsException;
 import com.brighties.userservice.exception.TeacherNotFoundException;
 import com.brighties.userservice.mapper.TeacherMapper;
 import com.brighties.userservice.model.Role;
-import com.brighties.userservice.model.Teacher;
+import com.brighties.userservice.model.TeacherProfile;
 import com.brighties.userservice.repository.TeacherRepository;
 import com.brighties.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +24,17 @@ public class TeacherServiceImpl implements UserService<TeacherResponseDTO, Teach
 
     @Override
     public List<TeacherResponseDTO> getAll() {
-        List<Teacher> teachers = teacherRepository.findAll();
-        return teachers.stream()
+        List<TeacherProfile> teacherProfiles = teacherRepository.findAll();
+        return teacherProfiles.stream()
                 .map(TeacherMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public TeacherResponseDTO getById(Long id) throws TeacherNotFoundException {
-        Teacher teacher = teacherRepository.findById(id)
+        TeacherProfile teacherProfile = teacherRepository.findById(id)
                 .orElseThrow(() -> new TeacherNotFoundException("Teacher not found with id: " + id));
-        return TeacherMapper.toDTO(teacher);
+        return TeacherMapper.toDTO(teacherProfile);
     }
 
     @Override
@@ -45,29 +45,29 @@ public class TeacherServiceImpl implements UserService<TeacherResponseDTO, Teach
             throw new PhoneNumberExistsException("Phone number already exists");
         }
         teacherRequestDTO.setRole(Role.TEACHER);
-        Teacher newTeacher = teacherRepository.save(TeacherMapper.toModel(teacherRequestDTO));
-        return TeacherMapper.toDTO(newTeacher);
+        TeacherProfile newTeacherProfile = teacherRepository.save(TeacherMapper.toModel(teacherRequestDTO));
+        return TeacherMapper.toDTO(newTeacherProfile);
     }
 
     @Override
     public TeacherResponseDTO update(Long id, TeacherRequestDTO teacherRequestDTO) {
-        Teacher teacher = teacherRepository.findById(id).orElseThrow( () ->
+        TeacherProfile teacherProfile = teacherRepository.findById(id).orElseThrow( () ->
                 new TeacherNotFoundException("teacher not found with id:" + id));
 
-        teacher.setName(teacherRequestDTO.getName());
-        teacher.setSurname(teacherRequestDTO.getSurname());
-        if (teacherRepository.existsByPhoneNumber(teacherRequestDTO.getPhoneNumber())) {
+        teacherProfile.setName(teacherRequestDTO.getName());
+        teacherProfile.setSurname(teacherRequestDTO.getSurname());
+        if (!teacherProfile.getEmail().equals(teacherRequestDTO.getEmail()) && teacherRepository.existsByPhoneNumber(teacherRequestDTO.getPhoneNumber())) {
             throw new PhoneNumberExistsException("Phone number already exists");
         }
-        teacher.setPhoneNumber(teacherRequestDTO.getPhoneNumber());
-        teacher.setDescription(teacherRequestDTO.getDescription());
-        if (teacherRepository.existsByEmail(teacherRequestDTO.getEmail())) {
+        teacherProfile.setPhoneNumber(teacherRequestDTO.getPhoneNumber());
+        teacherProfile.setDescription(teacherRequestDTO.getDescription());
+        if (!teacherProfile.getEmail().equals(teacherRequestDTO.getEmail()) && teacherRepository.existsByEmail(teacherRequestDTO.getEmail())) {
             throw new EmailAlreadyExistsException("Email already exists");
         }
-        teacher.setEmail(teacherRequestDTO.getEmail());
+        teacherProfile.setEmail(teacherRequestDTO.getEmail());
 
-        Teacher updatedTeacher = teacherRepository.save(teacher);
-        return TeacherMapper.toDTO(updatedTeacher);
+        TeacherProfile updatedTeacherProfile = teacherRepository.save(teacherProfile);
+        return TeacherMapper.toDTO(updatedTeacherProfile);
     }
 
     @Override

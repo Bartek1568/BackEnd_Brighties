@@ -8,8 +8,7 @@ import com.brighties.reservationservice.exception.AvailabilitySlotIsAlreadyReser
 import com.brighties.reservationservice.exception.StudentNotFoundException;
 import com.brighties.reservationservice.exception.TeacherNotFoundException;
 import com.brighties.reservationservice.grpc.AvailabilityGrpcClient;
-import com.brighties.reservationservice.grpc.StudentGrpcClient;
-import com.brighties.reservationservice.grpc.TeacherGrpcClient;
+import com.brighties.reservationservice.grpc.UserGrpcClient;
 import com.brighties.reservationservice.mapper.ReservationMapper;
 import com.brighties.reservationservice.model.Reservation;
 import com.brighties.reservationservice.repository.ReservationRepository;
@@ -24,18 +23,15 @@ import java.util.stream.Collectors;
 public class ReservationService {
 
     private ReservationRepository reservationRepository;
-    private final StudentGrpcClient studentGrpcClient;
-    private final TeacherGrpcClient teacherGrpcClient;
     private final AvailabilityGrpcClient availabilityGrpcClient;
+    private final UserGrpcClient userGrpcClient;
     private final ReservationEventPublisher eventPublisher;
 
-    public ReservationService(ReservationRepository reservationRepository, StudentGrpcClient studentGrpcClient,
-                              TeacherGrpcClient teacherGrpcClient,
-                              AvailabilityGrpcClient availabilityGrpcClient, ReservationEventPublisher eventPublisher) {
+    public ReservationService(ReservationRepository reservationRepository,
+                              AvailabilityGrpcClient availabilityGrpcClient, ReservationEventPublisher eventPublisher, UserGrpcClient userGrpcClient) {
         this.reservationRepository = reservationRepository;
-        this.studentGrpcClient = studentGrpcClient;
-        this.teacherGrpcClient = teacherGrpcClient;
         this.availabilityGrpcClient = availabilityGrpcClient;
+        this.userGrpcClient = userGrpcClient;
         this.eventPublisher = eventPublisher;
     }
 
@@ -90,15 +86,14 @@ public class ReservationService {
 
     private void checkIfStudentAndTeacherExists(ReservationRequestDTO reservationRequestDTO){
         Long studentId = reservationRequestDTO.getStudentId();
+        Long teacherId = reservationRequestDTO.getTeacherId();
 
-        if (!studentGrpcClient.checkStudentExists(studentId)) {
+        if(!userGrpcClient.checkUserExistenceByRole(studentId,"STUDENT")){
             throw new StudentNotFoundException("Student with ID " + studentId + " does not exist");
         }
-
-        if (!teacherGrpcClient.checkTeacherExists(reservationRequestDTO.getTeacherId())) {
+        if(!userGrpcClient.checkUserExistenceByRole(teacherId,"TEACHER")){
             throw new TeacherNotFoundException("Teacher with ID " + reservationRequestDTO.getTeacherId() + " does not exist");
         }
-
 
 
     }

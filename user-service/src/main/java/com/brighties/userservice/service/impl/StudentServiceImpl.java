@@ -7,7 +7,7 @@ import com.brighties.userservice.exception.PhoneNumberExistsException;
 import com.brighties.userservice.exception.StudentNotFoundException;
 import com.brighties.userservice.mapper.StudentMapper;
 import com.brighties.userservice.model.Role;
-import com.brighties.userservice.model.Student;
+import com.brighties.userservice.model.StudentProfile;
 import com.brighties.userservice.repository.StudentRepository;
 import com.brighties.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +24,17 @@ public class StudentServiceImpl implements UserService<StudentResponseDTO, Stude
 
     @Override
     public List<StudentResponseDTO> getAll() {
-        List<Student> students = studentRepository.findAll();
-        return students.stream()
+        List<StudentProfile> studentProfiles = studentRepository.findAll();
+        return studentProfiles.stream()
                 .map(StudentMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public StudentResponseDTO getById(Long id) throws StudentNotFoundException {
-        Student student = studentRepository.findById(id)
+        StudentProfile studentProfile = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + id));
-        return StudentMapper.toDTO(student);
+        return StudentMapper.toDTO(studentProfile);
     }
 
     @Override
@@ -45,33 +45,33 @@ public class StudentServiceImpl implements UserService<StudentResponseDTO, Stude
             throw new PhoneNumberExistsException("Phone number already exists");
         }
         studentRequestDTO.setRole(Role.STUDENT);
-        Student newStudent = studentRepository.save(StudentMapper.toModel(studentRequestDTO));
-        return StudentMapper.toDTO(newStudent);
+        StudentProfile newStudentProfile = studentRepository.save(StudentMapper.toModel(studentRequestDTO));
+        return StudentMapper.toDTO(newStudentProfile);
     }
 
     @Override
     public StudentResponseDTO update(Long id, StudentRequestDTO studentRequestDTO) {
-        Student student = studentRepository.findById(id)
+        StudentProfile studentProfile = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException("student not found with id: " + id));
 
-        student.setName(studentRequestDTO.getName());
-        student.setSurname(studentRequestDTO.getSurname());
-        student.setAge(studentRequestDTO.getAge());
-        if (studentRepository.existsByEmail(studentRequestDTO.getEmail())) {
+        studentProfile.setName(studentRequestDTO.getName());
+        studentProfile.setSurname(studentRequestDTO.getSurname());
+        studentProfile.setAge(studentRequestDTO.getAge());
+        if (!studentProfile.getEmail().equals(studentRequestDTO.getEmail()) && studentRepository.existsByEmail(studentRequestDTO.getEmail())) {
             throw new EmailAlreadyExistsException("Email already exists");
         }
-        student.setEmail(studentRequestDTO.getEmail());
-        if (studentRepository.existsByPhoneNumber(studentRequestDTO.getPhoneNumber())) {
+        studentProfile.setEmail(studentRequestDTO.getEmail());
+        if (!studentProfile.getPhoneNumber().equals(studentRequestDTO.getPhoneNumber()) && studentRepository.existsByPhoneNumber(studentRequestDTO.getPhoneNumber())) {
             throw new PhoneNumberExistsException("Phone number already exists");
         }
-        student.setPhoneNumber(studentRequestDTO.getPhoneNumber());
-        student.setGoal(studentRequestDTO.getGoal());
-        student.setCourse(studentRequestDTO.getCourse());
-        student.setGrade(studentRequestDTO.getGrade());
-        student.setSchoolType(studentRequestDTO.getSchoolType());
+        studentProfile.setPhoneNumber(studentRequestDTO.getPhoneNumber());
+        studentProfile.setGoal(studentRequestDTO.getGoal());
+        studentProfile.setCourse(studentRequestDTO.getCourse());
+        studentProfile.setGrade(studentRequestDTO.getGrade());
+        studentProfile.setSchoolType(studentRequestDTO.getSchoolType());
 
-        Student updatedStudent = studentRepository.save(student);
-        return StudentMapper.toDTO(updatedStudent);
+        StudentProfile updatedStudentProfile = studentRepository.save(studentProfile);
+        return StudentMapper.toDTO(updatedStudentProfile);
     }
 
     @Override
