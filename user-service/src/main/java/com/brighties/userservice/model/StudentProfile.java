@@ -1,6 +1,7 @@
 package com.brighties.userservice.model;
 
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -9,8 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "students")
-public class Student extends User {
+@DiscriminatorValue("STUDENT")
+public class StudentProfile extends User {
 
     private Integer age;
 
