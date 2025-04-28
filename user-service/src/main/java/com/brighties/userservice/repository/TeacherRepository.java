@@ -1,6 +1,8 @@
 package com.brighties.userservice.repository;
 
-import com.brighties.userservice.model.Teacher;
+import com.brighties.userservice.model.TeacherProfile;
+import org.springframework.stereotype.Repository;
 
-public interface TeacherRepository extends BaseUserRepository<Teacher> {
+@Repository
+public interface TeacherRepository extends BaseUserRepository<TeacherProfile> {
 }

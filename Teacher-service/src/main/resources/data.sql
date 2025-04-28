@@ -1,4 +1,4 @@
-INSERT INTO teacher (name, surname, email, age, phone_number, description)
+INSERT INTO teacherProfile (name, surname, email, age, phone_number, description)
 VALUES
     ('Anna', 'Kowalska', 'anna.kowalska@example.com', 32, 501234567, 'Matematyka - liceum'),
     ('Piotr', 'Nowak', 'piotr.nowak@example.com', 40, 502345678, 'Fizyka - technikum'),

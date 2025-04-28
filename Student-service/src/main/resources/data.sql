@@ -1,4 +1,4 @@
-INSERT INTO student (name, surname, age, email, phone_number, goal, course, grade, school_type)
+INSERT INTO studentProfile (name, surname, age, email, phone_number, goal, course, grade, school_type)
 VALUES
     ('Anna', 'Kowalska', 17, 'anna.kowalska@example.com', 501234567, 'Przygotowanie do matury', 'Matematyka', 4, 'Liceum'),
     ('Jan', 'Nowak', 18, 'jan.nowak@example.com', 502345678, 'Poprawa ocen', 'Fizyka', 3, 'Liceum'),
