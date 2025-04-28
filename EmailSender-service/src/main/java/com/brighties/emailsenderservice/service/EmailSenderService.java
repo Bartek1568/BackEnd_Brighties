@@ -1,37 +1,44 @@
 package com.brighties.emailsenderservice.service;
 
 import com.brighties.reservationservice.event.ReservationCreatedEvent;
-import com.brighties.emailsenderservice.grpc.StudentGrpcClient;
-import com.brighties.emailsenderservice.grpc.TeacherGrpcClient;
+import com.brighties.emailsenderservice.grpc.UserGrpcClient;
 import org.springframework.stereotype.Service;
-import student.StudentInfoResponse;
-import teacher.TeacherInfoResponse;
+import user.UserInfoByRoleResponse;
+import user.UserInfoResponse;
+import user.UserServiceGrpc;
 
 @Service
 public class EmailSenderService {
 
-    private final StudentGrpcClient studentGrpcClient;
-    private final TeacherGrpcClient teacherGrpcClient;
+    private final UserGrpcClient userGrpcClient;
     private final EmailService emailService;
 
-    public EmailSenderService(StudentGrpcClient studentGrpcClient,
-                              TeacherGrpcClient teacherGrpcClient,
-                              EmailService emailService) {
-        this.studentGrpcClient = studentGrpcClient;
-        this.teacherGrpcClient = teacherGrpcClient;
+    public EmailSenderService(UserGrpcClient userGrpcClient, EmailService emailService) {
+        this.userGrpcClient = userGrpcClient;
         this.emailService = emailService;
     }
 
     public void processReservationCreatedEvent(ReservationCreatedEvent event) {
-        StudentInfoResponse student = studentGrpcClient.getStudentInfo(event.getStudentId());
-        TeacherInfoResponse teacher = teacherGrpcClient.getTeacherInfo(event.getTeacherId());
-        System.out.println("Student info: " + student);
-        System.out.println("Teacher info: " + teacher);
-        System.out.println("wiadomość doszla do emailsenderservice");
-        if (!student.getExists()) {
-            System.err.println("Student nie istnieje, ID: " + event.getStudentId());
+        Long studentId = event.getStudentId();
+        Long teacherId = event.getTeacherId();
+
+        if (!userGrpcClient.checkUserExistsByRole(studentId, "STUDENT")) {
+            System.err.println("Student nie istnieje, ID: " + studentId);
             return;
         }
+
+        if (!userGrpcClient.checkUserExistsByRole(teacherId, "TEACHER")) {
+            System.err.println("Teacher nie istnieje, ID: " + teacherId);
+            return;
+        }
+
+        UserInfoByRoleResponse student = userGrpcClient.getUserInfoByRole(studentId, "STUDENT");
+
+        UserInfoByRoleResponse teacher = userGrpcClient.getUserInfoByRole(teacherId, "TEACHER");
+
+        System.out.println("Student info: " + student);
+        System.out.println("Teacher info: " + teacher);
+        System.out.println("Wiadomość dotarła do emailsender service");
 
         // Email do ucznia
         emailService.sendEmail(
@@ -56,9 +63,7 @@ public class EmailSenderService {
                         teacher.getSurname(),
                         teacher.getEmail(),
                         teacher.getPhone()
-
                 )
-
         );
 
         // Email do nauczyciela

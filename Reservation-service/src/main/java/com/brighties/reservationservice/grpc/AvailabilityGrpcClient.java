@@ -27,7 +27,6 @@ public class AvailabilityGrpcClient {
 
     public boolean checkSlotAvailable(Long availabilityId) {
 
-
         CheckSlotRequest request = CheckSlotRequest.newBuilder()
                 .setAvailabilityId(availabilityId)
                 .build();
