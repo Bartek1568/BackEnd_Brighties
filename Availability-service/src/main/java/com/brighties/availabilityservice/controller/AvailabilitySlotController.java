@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/availability")
+@RequestMapping("/availabilities")
 public class AvailabilitySlotController {
 
     private final AvailabilitySlotService availabilitySlotService;
@@ -36,7 +36,7 @@ public class AvailabilitySlotController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAvailabilitySlot(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAvailabilitySlot(@PathVariable Long id) {
         availabilitySlotService.deleteAvailabilitySlot(id);
         return ResponseEntity.noContent().build();
     }
