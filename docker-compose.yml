@@ -36,3 +36,47 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
     depends_on:
       - kafka
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - kafka
+
+  reservation-service:
+    build: ./reservation-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - kafka
+
+  emailsender-service:
+    build: ./emailsender-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - kafka
+
+  availability-service:
+    build: ./availability-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8087:8087"
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "4004:4004"
+    depends_on:
+      - user-service
+      - reservation-service
+      - emailsender-service
+      - availability-service
+      - auth-service

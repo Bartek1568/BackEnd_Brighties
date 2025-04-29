@@ -36,10 +36,6 @@ public class EmailSenderService {
 
         UserInfoByRoleResponse teacher = userGrpcClient.getUserInfoByRole(teacherId, "TEACHER");
 
-        System.out.println("Student info: " + student);
-        System.out.println("Teacher info: " + teacher);
-        System.out.println("Wiadomość dotarła do emailsender service");
-
         // Email do ucznia
         emailService.sendEmail(
                 student.getEmail(),

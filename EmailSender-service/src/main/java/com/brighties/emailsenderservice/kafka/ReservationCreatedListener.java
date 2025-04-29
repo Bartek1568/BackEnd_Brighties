@@ -16,8 +16,6 @@ public class ReservationCreatedListener {
 
     @KafkaListener(topics = "reservation-created", groupId = "email-group", containerFactory = "kafkaListenerContainerFactory")
     public void handleReservationCreatedEvent(ReservationCreatedEvent reservationCreatedEvent) {
-        System.out.println("Event otrzymany: " + reservationCreatedEvent);
         emailSenderService.processReservationCreatedEvent(reservationCreatedEvent);
-        System.out.println("wiadomość dotarła o rezerwacji do email-sender");
     }
 }
