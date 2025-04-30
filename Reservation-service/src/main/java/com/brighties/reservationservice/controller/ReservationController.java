@@ -36,7 +36,7 @@ public class ReservationController {
     }
 
     @GetMapping("/student-teacher/{studentId}/{teacherId}")
-    public ResponseEntity<List<ReservationResponseDTO>> getReservationByStudentIdAndTeacherId(@PathVariable Long studentId, @PathVariable Long teacherId) {
+    public ResponseEntity<List<ReservationResponseDTO>> getReservationsByStudentIdAndTeacherId(@PathVariable Long studentId, @PathVariable Long teacherId) {
 
         List<ReservationResponseDTO> reservations = reservationService.getReservationsByStudentIdAndTeacherId(studentId, teacherId);
 

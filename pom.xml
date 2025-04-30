@@ -18,11 +18,12 @@
 
     <modules>
         <module>proto-definition</module>
-        <module>Teacher-service</module>
-        <module>Student-service</module>
+        <module>user-service</module>
         <module>Availability-service</module>
         <module>Reservation-service</module>
         <module>common-events</module>
+        <module>api-gateway</module>
+        <module>EmailSender-service</module>
     </modules>
 
     <licenses>
